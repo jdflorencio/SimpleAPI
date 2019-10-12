@@ -24,28 +24,32 @@ module.exports = {
       },
       // infor pessoas
       data_nascimento: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       data_fundacao: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       nacionalidade: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(30)
       },
       estado_civil: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(15)
       },
       rg: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING(15)
       },
       cpf_cnpj: {
         allowNull: false,
         type: Sequelize.STRING(14)
+      },
+      inscricao_estadual: {
+        allowNull: true,
+        type: Sequelize.STRING(15)
       },
       // endereço
       endereco : {
@@ -79,11 +83,11 @@ module.exports = {
       },
       telefone : {
         allowNull: true,
-        type: Sequelize.STRING(12)
+        type: Sequelize.STRING(14)
       },
       celular : {
         allowNull: true,
-        type: Sequelize.STRING(12)
+        type: Sequelize.STRING(14)
       },
       createdAt: {
         allowNull: false, 
@@ -95,7 +99,6 @@ module.exports = {
       }
     });
   },
-
   down: (queryInterface) => {
     return queryInterface.dropTable('clientes');
   }
