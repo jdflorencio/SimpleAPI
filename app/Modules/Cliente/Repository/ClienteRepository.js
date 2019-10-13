@@ -25,8 +25,16 @@ exports.getAll = async (req, res) => {
 		'telefone',
 		'celular',
 		'createdAt',
-		'updateAt',]});
+		'updatedAt',]});
 	return allClientes;
+}
+
+exports.getCliente = async (req) => {
+	const { idCliente } = req.params
+	const cliente = await clientes.findOne({ where: {
+			id: idCliente
+		}})
+		return cliente
 }
 
 exports.deleting = async (req) => {
@@ -40,6 +48,9 @@ exports.deleting = async (req) => {
 			} else {
 				return "Cliente Removido com sucesso"
 			}
+		})
+		.catch((error) => {
+			return error
 		})
 		return msg
 }

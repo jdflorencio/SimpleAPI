@@ -6,6 +6,11 @@ module.exports = {
        return res.send(clientes);
     },
 
+    async cliente(req, res) {
+      const clientes =  await repository.getCliente(req);
+      return res.send(clientes);
+   },
+
     async create(req, res) {
         // const clientes =  await repository.getAll(req, res);
         return res.send('em desenvolvimento o metodo create');
