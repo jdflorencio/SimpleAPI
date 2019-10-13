@@ -1,24 +1,23 @@
 const repository = require('../Repository/ClienteRepository');
 
 module.exports = {
-    async index(req, rest) {
-       const clientes =  await repository.getAll(req, rest);
-       return rest.send(clientes);
+    async index(req, res) {
+       const clientes =  await repository.getAll(req, res);
+       return res.send(clientes);
     },
 
-    async create(req, rest) {
-        // const clientes =  await repository.getAll(req, rest);
-        return rest.send('em desenvolvimento o metodo create');
+    async create(req, res) {
+        // const clientes =  await repository.getAll(req, res);
+        return res.send('em desenvolvimento o metodo create');
      },
 
-
-    async update(req, rest) {
-        // const clientes =  await repository.getAll(req, rest);
-        return rest.send('em desenvolvimento');
+    async update(req, res) {
+        // const clientes =  await repository.getAll(req, res);
+        return res.send('em desenvolvimento');
      },
 
-     async delete(req, rest) {
-        // const clientes =  await repository.getAll(req, rest);
-        return rest.send('em desenvolvimento');
-     },
+     async delete(req, res) {
+      const cliente =  await repository.deleting(req);   
+      return res.send(cliente);
+   }
 }
