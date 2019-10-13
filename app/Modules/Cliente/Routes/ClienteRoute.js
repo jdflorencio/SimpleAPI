@@ -1,9 +1,8 @@
 const express = require('express');
 const routes = express.Router();
+const clienteController = require('../Controllers/ClienteController');
 
-routes.get('/', (req, res) => {
-    return res.send('estou na tela principal de clientes');
-});
+routes.get('/', clienteController.index);
 
 
 module.exports = routes;
