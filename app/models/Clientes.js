@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         telefone : DataTypes.STRING,
         celular : DataTypes.STRING,
         createdAt: DataTypes.DATE,
-        updateAt: DataTypes.DATE        
+        updatedAt: DataTypes.DATE        
     });
     return Clientes;
 }

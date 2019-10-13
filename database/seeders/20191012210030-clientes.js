@@ -27,7 +27,7 @@ module.exports = {
           telefone : "(71)2897-7557",
           celular: "(71)98273-7852",
           createdAt: new Date(),
-          updateAt: new Date(),
+          updatedAt: new Date(),
         },
         // EXEMPO PESSOA JURIDICA
         {
@@ -47,7 +47,7 @@ module.exports = {
           telefone:"(19)2900-3467",
           celular:"(19)99180-7025",
           createdAt: new Date(),
-          updateAt: new Date(),
+          updatedAt: new Date(),
         }
     ], {});
     
