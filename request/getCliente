@@ -1,5 +1,2 @@
 GET http://127.0.0.1:3333/cliente HTTP/1.1
 content-type: application/json
-
-POST http://127.0.0.1:3333/cliente HTTP/1.1
-content-type: application/json

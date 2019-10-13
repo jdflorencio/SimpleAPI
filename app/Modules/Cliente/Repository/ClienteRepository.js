@@ -1,6 +1,8 @@
 const { clientes } = require('../../../models')
 exports.getAll = async (req, rest) => {
 	const allClientes = await clientes.findAll({attributes: [
+		'id',
+		'tipo',
 		'nome',
 		'nome_fantasia',
 		// infor pessoas

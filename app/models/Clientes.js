@@ -1,8 +1,14 @@
 
 module.exports = (sequelize, DataTypes) => {
     const Clientes = sequelize.define('clientes', {
-        // id:  DataTypes.INTEGER,
-        // tipo: DataTypes.ENUM,        
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true
+        },
+        tipo: {
+            type: DataTypes.ENUM,
+            values: ['pf', 'pj']
+          },
         nome: DataTypes.STRING,
         nome_fantasia: DataTypes.STRING,
         // infor pessoas
