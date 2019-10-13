@@ -1,4 +1,4 @@
-@params = 8
+@params = 3
 
 @contentType = application/json
 @hostname = 127.0.0.1

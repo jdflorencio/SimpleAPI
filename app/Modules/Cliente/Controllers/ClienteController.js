@@ -2,7 +2,7 @@ const repository = require('../Repository/ClienteRepository');
 
 module.exports = {
     async index(req, res) {
-       const clientes =  await repository.getAll(req, res);
+       const clientes =  await repository.getAll(req);
        return res.send(clientes);
     },
 

@@ -1,5 +1,5 @@
 const { clientes } = require('../../../models')
-exports.getAll = async (req, res) => {
+exports.getAll = async (req) => {
 	const allClientes = await clientes.findAll({attributes: [
 		'id',
 		'tipo',
