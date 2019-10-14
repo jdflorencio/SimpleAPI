@@ -1,0 +1,26 @@
+@contentType = application/json
+@hostname = 127.0.0.1
+@port = 3333
+@host = {{hostname}}:{{port}}
+
+PUT http://{{host}}/cliente/ HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "id":10,
+    "tipo": "pj",
+    "nome": "eletronica node",
+    "nome_fantasia": "ELETRONICA LORENZO",
+    "data_fundacao": "2014-03-26",
+    "cpf_cnpj": "30471270000141",
+    "inscricao_estadual":"508.278.225.430",
+    "endereco": "Rua Álvaro Barbosa",
+    "bairro": "Jardim São Lucas",
+    "numero":"468",
+    "complemento":"CLIENTE PESSOA JURIDICA 1",
+    "cidade": "Pirassununga",
+    "uf":"SP",
+    "email":"posvenda@lorenzoesaraheletronicame.com.br",
+    "telefone":"(19)2900-3467",
+    "celular":"(19)99180-7025"
+}

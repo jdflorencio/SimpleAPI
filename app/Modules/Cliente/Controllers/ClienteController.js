@@ -12,13 +12,13 @@ module.exports = {
    },
 
     async create(req, res) {
-        // const clientes =  await repository.getAll(req, res);
-        return res.send('em desenvolvimento o metodo create');
+        const clientes =  await repository.addCliente(req);
+        return res.send(clientes);
      },
 
     async update(req, res) {
-        // const clientes =  await repository.getAll(req, res);
-        return res.send('em desenvolvimento');
+        const clientes =  await repository.update(req);
+        return res.send(clientes);
      },
 
      async delete(req, res) {

@@ -37,13 +37,46 @@ exports.getCliente = async (req) => {
 		return cliente
 }
 
+exports.update = async (req) => {
+	const { body } = req
+	if (body.id) {
+		const foundCliente = await clientes.findOne({ where: {
+			id: body.id
+		}})
+		.then((result) =>{
+			if (result == null) {
+				return false
+			} else {
+				return true
+			}
+		})
+
+		if (foundCliente == false) {
+			return "cliente não encontrado!"
+		} else {
+			const result = await clientes.upsert(body)
+				.then((resp) => {
+					if (resp == false) {
+						return "Cliente atualizado com sucesso!"
+					}
+				})
+				.catch((error) => {
+					console.log(error)
+				})
+				return result
+		}
+	} else {
+		return "cliente não encontrado!"
+	}	
+}
+
 exports.deleting = async (req) => {
 	const { idCliente } = req.params
 	const msg = await clientes.destroy({ where: {
 			id: idCliente
 		}})
-		.then((u) => { 
-			if (u == 0) {
+		.then((result) => { 
+			if (result == 0) {
 				return "Cliente não encontrado"					
 			} else {
 				return "Cliente Removido com sucesso"
