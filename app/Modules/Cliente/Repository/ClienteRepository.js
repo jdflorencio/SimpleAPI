@@ -37,6 +37,23 @@ exports.getCliente = async (req) => {
 		return cliente
 }
 
+exports.addCliente = async (req) => {
+	const { body } = req		
+	const result = await clientes.create(body)
+		.then((resp) => {
+			if (resp != null) {
+				return { 
+					id: resp.null,
+					msg : "Cliente cadastrado com sucesso!" 
+				}
+			}
+		})
+		.catch((error) => {
+			console.log(error)
+		})
+	return result
+}
+
 exports.update = async (req) => {
 	const { body } = req
 	if (body.id) {
