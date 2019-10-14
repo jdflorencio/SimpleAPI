@@ -25,16 +25,16 @@ exports.getAll = async (req) => {
 		'telefone',
 		'celular',
 		'createdAt',
-		'updatedAt',]});
-	return allClientes;
+		'updatedAt',]})
+	return allClientes
 }
 
 exports.getCliente = async (req) => {
 	const { idCliente } = req.params
 	const cliente = await clientes.findOne({ where: {
-			id: idCliente
-		}})
-		return cliente
+    id: idCliente
+  }})
+  return cliente
 }
 
 exports.addCliente = async (req) => {
@@ -83,24 +83,24 @@ exports.update = async (req) => {
 				return result
 		}
 	} else {
-		return "cliente não encontrado!"
-	}	
+   return "cliente não encontrado!"
+	}
 }
 
 exports.deleting = async (req) => {
 	const { idCliente } = req.params
 	const msg = await clientes.destroy({ where: {
-			id: idCliente
-		}})
-		.then((result) => { 
-			if (result == 0) {
-				return "Cliente não encontrado"					
-			} else {
-				return "Cliente Removido com sucesso"
-			}
-		})
-		.catch((error) => {
-			return error
-		})
-		return msg
+    id: idCliente
+  }})
+	.then((result) => { 
+    if (result == 0) {
+      return "Cliente não encontrado"					
+    } else {
+      return "Cliente Removido com sucesso"
+    }
+  })
+  .catch((error) => {
+    return error
+  })
+  return msg
 }

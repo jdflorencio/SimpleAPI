@@ -6,7 +6,7 @@ const app = express();
 const routes = require('./app/Modules/Cliente/Routes/ClienteRoute');
 const server = require('http').Server(app);
 
-// CONFIG
+/* CONFIG */
 
 // parse application/json
 app.use(bodyParser.json())
