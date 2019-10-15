@@ -8,6 +8,21 @@ criando a tabela:
  $ npx sequelize-cli db:migrate
  ```
 
- para remover:
+ para desfazer:
+ ```
+$ npx sequelize-cli db:migrate:undo
+    
+ ```
 
+ para povoar as tabelas:
+ ```
+$ npx sequelize-cli db:seed:all
+    
+ ```
  
+
+ desfazendo:
+ ```
+$ npx sequelize-cli db:seed:undo
+    
+ ```
