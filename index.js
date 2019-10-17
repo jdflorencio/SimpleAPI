@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 // require('dotenv').config();
-// const cors = require('cors')
+const cors = require('cors');
 const routes = require('./app/Modules/Cliente/Routes/ClienteRoute');
 const server = require('http').Server(app);
 
 /* CONFIG */
+app.use(cors())
 
 // parse application/json
 app.use(bodyParser.json())
