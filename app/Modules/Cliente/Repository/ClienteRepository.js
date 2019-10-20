@@ -6,25 +6,25 @@ exports.getAll = async (req) => {
 		'nome',
 		'nome_fantasia',
 		// infor pessoas
-		'data_nascimento',
-		'data_fundacao',
-		'nacionalidade',
-		'estado_civil',
-		'rg',
-		'cpf_cnpj',
-		'inscricao_estadual',
+		// 'data_nascimento',
+		// 'data_fundacao',
+		// 'nacionalidade',
+		// 'estado_civil',
+		// 'rg',
+		// 'cpf_cnpj',
+		// 'inscricao_estadual',
 		// endereço
-		'endereco',
-		'bairro',
-		'numero',
-		'complemento',
+		// 'endereco',
+		// 'bairro',
+		// 'numero',
+		// 'complemento',
 		'cidade',
 		'uf',
 		//  contato
-		'email',
-		'telefone',
-		'celular',
-		'createdAt',
+		// 'email',
+		// 'telefone',
+		// 'celular',
+		'createdAt',	
 		'updatedAt',]})
 	return allClientes
 }
@@ -78,7 +78,7 @@ exports.update = async (req) => {
 					}
 				})
 				.catch((error) => {
-					console.log(error)
+					return error
 				})
 				return result
 		}
