@@ -4,7 +4,8 @@
     "password": "123",
     "database": "simpleERP",
     "host": "172.17.0.2",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "+03:00"
   },
   "test": {
     "username": "root",
