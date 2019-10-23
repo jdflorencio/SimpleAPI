@@ -12,17 +12,17 @@ module.exports = {
   },
 
   async create(req, res) {
-    const clientes =  await repository.addCliente(req);
-    return res.send(clientes);
+    const cliente =  await repository.addCliente(req);
+    return res.status(cliente.status).send(cliente);
   },
 
   async update(req, res) {
-    const clientes =  await repository.update(req);
-    return res.send(clientes);
+    const cliente =  await repository.update(req);
+    return res.status(cliente.status).send(cliente);
   },
 
   async delete(req, res) {
     const cliente =  await repository.deleting(req);   
-    return res.send(cliente);
+    return res.status(cliente.status).send(cliente);
   }
 }
