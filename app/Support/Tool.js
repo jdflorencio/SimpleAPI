@@ -8,8 +8,7 @@ exports.dateFormat = (date) => {
         return date.split('-').reverse().join('/')
     } else {
         return 'false'  
-    }   
-
+    }
 }
 
 
