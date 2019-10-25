@@ -44,7 +44,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     // infor pessoas
-    data_nascimento: DataTypes.DATE,
+    data_nascimento: {
+      type: DataTypes.DATE,
+      validate: {
+        isDate: {
+          args: true, 
+          msg: "Essa data não é valida"
+        }
+      }
+    },
     data_fundacao: DataTypes.DATE,
     nacionalidade: {
       type: DataTypes.STRING,

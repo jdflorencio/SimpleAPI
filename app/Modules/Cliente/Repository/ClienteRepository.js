@@ -1,4 +1,5 @@
 const { clientes } = require('../../../models')
+const tools = require('../../../Support/Tool')
 exports.getAll = async (req) => {
   const allClientes = await clientes.findAll({attributes: [
     'id',
@@ -34,8 +35,15 @@ exports.getCliente = async (req) => {
   const cliente = await clientes.findOne({ where: {
     id: idCliente
   }})
+  // const {dataValues} = cliente
+  if ( cliente.data_nascimento != null) {
+      cliente.dataValues.data_nascimento = tools.dateFormat(cliente.data_nascimento)   
+  } else if (cliente.data_fundacao != null ) {
+    cliente.dataValues.data_fundacao = tools.dateFormat(cliente.data_fundacao)
+  }
   return cliente
 }
+
 
 exports.addCliente = async (req) => {
   const { body } = req		

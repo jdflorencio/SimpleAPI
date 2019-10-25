@@ -25,11 +25,11 @@ module.exports = {
       // infor pessoas
       data_nascimento: {
         allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       data_fundacao: {
         allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       nacionalidade: {
         allowNull: true,
