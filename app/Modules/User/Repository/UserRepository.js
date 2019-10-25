@@ -6,7 +6,7 @@ exports.getAll = async (req) => {
 }
 
 exports.getUser = async (req) => {
-// 	const { idUser } = req.params
+	const { idUser } = req.params
 // 	const cliente = await users.findOne({ where: {
 //     id: idUser
 //   }})

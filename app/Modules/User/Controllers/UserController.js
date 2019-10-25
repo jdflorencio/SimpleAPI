@@ -6,7 +6,7 @@ module.exports = {
     return res.send(users);
   },
 
-  async cliente(req, res) {
+  async user(req, res) {
     const users =  await repository.getUser(req);
     return res.send(users);
   },
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   async delete(req, res) {
-    const cliente =  await repository.deleting(req);   
-    return res.send(cliente);
+    const user =  await repository.deleting(req);   
+    return res.send(user);
   }
 }
