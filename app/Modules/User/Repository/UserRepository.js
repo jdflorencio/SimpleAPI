@@ -5,30 +5,28 @@ exports.getAll = async (req) => {
 	return 'estou no repository'
 }
 
-exports.getUser = async (req) => {
-	const { idUser } = req.params
-// 	const cliente = await users.findOne({ where: {
-//     id: idUser
-//   }})
-//   return cliente
-	return 'retorna usuario'
+exports.login = async (req) => {
+
+	if(req.body.user == 'diego' && req.body.pwd === '123') {
+		// auth ok
+		const id = 1 // essa ID vira do banco de dados
+		var token = jwt.sign({ id }, process.env.SECRET, {
+			expiresIn: 300 // in 5 min
+		})
+		.res.status(200).send({ auth: true, token: token})
+	}
+	return {
+		status: 500,
+		msg: "Login invalido!"
+	}
 }
 
-exports.addUser = async (req) => {
-	// const { body } = req		
-	// const result = await users.create(body)
-	// 	.then((resp) => {
-	// 		if (resp != null) {
-	// 			return { 
-	// 				id: resp.null,
-	// 				msg : "User cadastrado com sucesso!" 
-	// 			}
-	// 		}
-	// 	})
-	// 	.catch((error) => {
-	// 		console.log(error)
-	// 	})
-	return 'usuario adicionando com sucesso'
+exports.logout = async (req) => {
+	return {
+		status: 200,
+		auth: false,
+		token: null
+	}
 }
 
 exports.update = async (req) => {

@@ -3,8 +3,9 @@ const routes = express.Router();
 
 const userController = require('../Controllers/UserController');
 
-routes.get('/', userController.index);
-routes.get('/:idUser', userController.user);
+routes.get('/login', userController.login);
+
+routes.get('/logout', userController.logout);
 routes.post('/' ,userController.create);
 routes.put('/', userController.update);
 routes.delete('/:idUser', userController.delete);

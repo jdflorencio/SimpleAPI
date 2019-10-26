@@ -1,13 +1,13 @@
 const repository = require('../Repository/UserRepository');
 
 module.exports = {
-  async index(req, res) {
-    const users =  await repository.getAll(req);
+  async login(req, res, next) {
+    const users =  await repository.login(req);
     return res.send(users);
   },
 
-  async user(req, res) {
-    const users =  await repository.getUser(req);
+  async logout(req, res) {
+    const users =  await repository.logout(req);
     return res.send(users);
   },
 
