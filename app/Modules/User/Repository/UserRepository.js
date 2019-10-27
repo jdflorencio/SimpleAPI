@@ -1,4 +1,6 @@
 // const { users } = require('../../../models')
+var jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 exports.getAll = async (req) => {
 	
@@ -6,14 +8,19 @@ exports.getAll = async (req) => {
 }
 
 exports.login = async (req) => {
-
-	if(req.body.user == 'diego' && req.body.pwd === '123') {
+	
+	if(req.body.user == 'diego' && req.body.pwd == '123') {
 		// auth ok
+		console.log('=>'+req.body.user)	
 		const id = 1 // essa ID vira do banco de dados
 		var token = jwt.sign({ id }, process.env.SECRET, {
 			expiresIn: 300 // in 5 min
 		})
-		.res.status(200).send({ auth: true, token: token})
+		return {
+			status: 200,
+			auth: true,
+			token
+		}
 	}
 	return {
 		status: 500,
