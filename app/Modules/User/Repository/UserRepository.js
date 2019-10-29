@@ -1,5 +1,8 @@
-// const { users } = require('../../../models')
+const { users } = require('../../../models/')
 var jwt = require('jsonwebtoken');
+// var bcrypt = require('bcrypt');
+// const saltRounds = 10;
+
 require('dotenv').config();
 
 exports.getAll = async (req) => {
@@ -8,10 +11,19 @@ exports.getAll = async (req) => {
 }
 
 exports.login = async (req) => {
+	const { email, pwd } = req.params
+
+	const users = await users.findOne({ where: {
+		email: email
+	}})
+
+	console.log('aqui ==>'+users)
+	return false
+
 	
-	if(req.body.user == 'diego' && req.body.pwd == '123') {
+	if(email == 'diego' && pwd == '123') {
 		// auth ok
-		console.log('=>'+req.body.user)	
+		
 		const id = 1 // essa ID vira do banco de dados
 		var token = jwt.sign({ id }, process.env.SECRET, {
 			expiresIn: 300 // in 5 min
