@@ -3,8 +3,9 @@ const repository = require('../Repository/UserRepository');
 module.exports = {
   async login(req, res, next) {
     
-    const {status, ...users} =  await repository.login(req);
+    const {status, ...users}=  await repository.login(req);
     return res.status(status).send(users);
+    
   },
 
   async logout(req, res) {  
@@ -17,6 +18,7 @@ module.exports = {
     return res.send(users);
   },
 
+  
   async update(req, res) {
     const users =  await repository.update(req);
     return res.send(users);
