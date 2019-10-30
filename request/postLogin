@@ -1,0 +1,12 @@
+@contentType = application/json
+@hostname = 127.0.0.1
+@port = 3333
+@host = {{hostname}}:{{port}}
+
+POST http://{{host}}/auth/login HTTP/1.1
+content-type: {{contentType}}
+
+{
+    "email": "jdflorencio@gmail.com",
+    "password": "12345"
+}
