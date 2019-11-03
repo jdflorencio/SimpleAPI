@@ -5,56 +5,53 @@ const saltRounds = 10;
 
 require('dotenv').config();
 
-exports.getAll = async (req) => {
-	
+exports.getAll = async (req) => {	
 	return 'estou no repository'
 }
 
-exports.login =  async (req) => {
-	const {email, password } = req.body
-
-	const all = await users.findOne({where: {email: email}})
+exports.login = async (req) => {
 	
-	if (!all) {
+	const {email, password, userId } = req.body
+	const user = await users.findOne(
+		{where: {
+			email: email,
+			userId
+		}})
+
+	if (!user) {
 		return {
 			status: 401,
 			msg: "usuario não encontrado!"
 		}
 	}
-	// const pwdRequest = bcrypt.hashSync(password, saltRounds)
+	
+	const teste = bcrypt.compare(password, user.password)
+	.then(( result) => {		
+		if (result) {	
+			const id = user.id // essa ID vira do banco de dados
+			var token = jwt.sign({ id }, process.env.SECRET, {
+				expiresIn: 100 // in 5 min
+			})
 
-	// console.log('request ==>' + pwdRequest)
-	console.log('bd => '+ all.password)
+			return {
+				status: 200,
+				token: token 
+			}
 
-	let tes = bcrypt.compare(password, all.password, function(err, result) {
-		return result
-		
+		} else {
+			return {
+				status: 401,
+				msg: 'teste'
+			}
+		}
+	}).catch((err) => {
+		return {
+			status: 400,
+			msg: err
+		}
 	})
-	console.log(tes)
-	
 
-	
-	
-	
-
-	
-	// if(email == 'diego' && pwd == '123') {
-	// 	// auth ok
-		
-	// 	const id = 1 // essa ID vira do banco de dados
-	// 	var token = jwt.sign({ id }, process.env.SECRET, {
-	// 		expiresIn: 300 // in 5 min
-	// 	})
-	// 	return {
-	// 		status: 200,
-	// 		auth: true,
-	// 		token
-	// 	}
-	// }
-	// return {
-	// 	status: 500,
-	// 	msg: "Login invalido!"
-	// }
+	return teste
 }
 
 exports.logout = async (req) => {

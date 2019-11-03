@@ -9,6 +9,14 @@ module.exports = {
         primaryKey: true, 
         type: Sequelize.INTEGER, 
       }, 
+      userId: {
+        allowNull: false, 
+        references: {
+          model:'users',
+          key: 'id'
+        },
+        type: Sequelize.INTEGER, 
+      },
       tipo: {
         allowNull: false,
         type: Sequelize.ENUM,

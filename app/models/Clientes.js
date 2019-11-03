@@ -10,6 +10,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
+    },
     tipo: {
         type: DataTypes.ENUM,
         values: ['pf', 'pj'],
@@ -174,7 +181,10 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: {
       type: DataTypes.DATE,
     },
-    updatedAt: DataTypes.DATE        
+    updatedAt: DataTypes.DATE
   });
+  Clientes.associate  = function(models) {
+    Clientes.belongsTo(models.users, {foreignkey: 'userId', as: 'users'})
+  }
   return Clientes;
 }

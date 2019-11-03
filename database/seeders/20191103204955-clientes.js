@@ -7,6 +7,7 @@ module.exports = {
       // EXEMPLO PESSOA FISICA
       {
         tipo: "pf",
+        userId: 1,
         nome:"Cecília Josefa da Costa",
         data_nascimento: "1987-08-18",
         nacionalidade: "BRASILEIRO",
@@ -28,6 +29,7 @@ module.exports = {
       // EXEMPO PESSOA JURIDICA
       {
         tipo: "pj",
+        userId: 1,
         nome: "Lorenzo e Sarah Eletrônica ME",
         nome_fantasia: "ELETRONICA LORENZO",
         data_fundacao: "2014-03-26",
