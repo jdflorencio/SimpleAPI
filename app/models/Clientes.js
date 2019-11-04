@@ -65,7 +65,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-
       }
     },
     estado_civil: DataTypes.STRING,

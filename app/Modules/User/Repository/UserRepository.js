@@ -14,8 +14,7 @@ exports.login = async (req) => {
 	const {email, password, userId } = req.body
 	const user = await users.findOne(
 		{where: {
-			email: email,
-			userId
+			email: email
 		}})
 
 	if (!user) {
@@ -35,13 +34,13 @@ exports.login = async (req) => {
 
 			return {
 				status: 200,
-				token: token 
+				msg: token 
 			}
 
 		} else {
 			return {
 				status: 401,
-				msg: 'teste'
+				msg: 'Login Invalido'
 			}
 		}
 	}).catch((err) => {
