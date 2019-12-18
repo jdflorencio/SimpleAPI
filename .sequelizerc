@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.experts = {
+module.exports = {
     'config': path.resolve('config', 'config.json'),
     'models-path': path.resolve('app', 'models'),
     'seeders-path': path.resolve('database', 'seeders'),
