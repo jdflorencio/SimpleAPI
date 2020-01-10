@@ -11,4 +11,12 @@ routes.post('/' ,clienteController.create)
 routes.put('/', clienteController.update)
 routes.delete('/:idCliente', clienteController.delete)
 
+/*TELEFONES*/
+routes.get('/:idCliente/telefone/')
+routes.post('/:idCliente/telefone/')
+routes.put('/:idCliente/telefone')
+routes.delete('/:idCliente/telefone')
+
+/**/
+
 module.exports = routes

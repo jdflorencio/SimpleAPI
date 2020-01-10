@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    telefone : DataTypes.STRING
+    telefone: DataTypes.STRING
   })
 
   return Telefones

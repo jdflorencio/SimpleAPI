@@ -19,8 +19,8 @@ exports.getAll = async (req) => {
     // 'bairro',
     // 'numero',
     // 'complemento',
-    'cidade',
-    'uf',
+    //'cidade',
+    //'uf',
     //  contato
     // 'email',
     // 'telefone',
@@ -35,12 +35,9 @@ exports.getCliente = async (req) => {
   const cliente = await clientes.findOne({ where: {
     id: idCliente
   }})
-  // const {dataValues} = cliente
-  if ( cliente.data_nascimento != null) {
-      cliente.dataValues.data_nascimento = tools.dateFormat(cliente.data_nascimento)   
-  } else if (cliente.data_fundacao != null ) {
+  /* const {dataValues} = clihttp://127.0.0.1:3333/cliente/0dacao != null ) {
     cliente.dataValues.data_fundacao = tools.dateFormat(cliente.data_fundacao)
-  }
+  }*/
   return cliente
 }
 
