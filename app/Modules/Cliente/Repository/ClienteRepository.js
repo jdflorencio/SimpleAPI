@@ -35,12 +35,9 @@ exports.getCliente = async (req) => {
   const cliente = await clientes.findOne({ where: {
     id: idCliente
   }})
-  /* const {dataValues} = clihttp://127.0.0.1:3333/cliente/0dacao != null ) {
-    cliente.dataValues.data_fundacao = tools.dateFormat(cliente.data_fundacao)
-  }*/
+
   return cliente
 }
-
 
 exports.addCliente = async (req) => {
   const { body } = req		
@@ -136,7 +133,6 @@ exports.deleting = async (req) => {
       return {
         status: 200,
         msg: "Cliente removido com sucesso!"
-
       }
     }
   })
