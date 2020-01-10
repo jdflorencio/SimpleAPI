@@ -13,12 +13,16 @@ routes.put('/', clienteController.update)
 routes.delete('/:idCliente', clienteController.delete)
 
 /* TELEFONES */
-routes.get('/:idCliente/telefone', clienteTelefoneController.getall)
+routes.get('/:idCliente/telefone', clienteTelefoneController.getAll)
+routes.post('/:idCliente/add', clienteTelefoneController.addTelefone)
+routes.put('/:idCliente/telefone', clienteTelefoneController.update)
+routes.delete('/:idCliente/telefone/:idTelefone', clienteTelefoneController.delete)
+
+/*
 routes.get('/:idCliente/telefone/:idtelefone', clienteTelefoneController.index)
-
-
-routes.post('/:idCliente/telefone/')
-routes.put('/:idCliente/telefone')
-routes.delete('/:idCliente/telefone')
+  routes.post('/:idCliente/telefone/')
+  
+  routes.delete('/:idCliente/telefone')
+*/
 
 module.exports = routes

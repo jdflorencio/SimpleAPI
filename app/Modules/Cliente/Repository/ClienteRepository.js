@@ -141,7 +141,6 @@ exports.deleting = async (req) => {
   })
   return msg
 }
-
 exports.ufList = async (req) => {
   
   return msg
