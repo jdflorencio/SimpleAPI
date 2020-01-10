@@ -1,9 +1,9 @@
 const express = require('express')
 const routes = express.Router()
-const verify = require('../../../Middlewares/auth_jwt')
+//const verify = require('../../../Middlewares/auth_jwt')
 
 const clienteController = require('../Controllers/ClienteController')
-routes.use(verify)
+//routes.use(verify)
 
 routes.get('/', clienteController.index)
 routes.get('/:idCliente', clienteController.cliente)

@@ -59,31 +59,6 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING(15)
       },
-      // endereço
-      endereco : {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      bairro : {
-        allowNull: true,
-        type: Sequelize.STRING(60)
-      },
-      numero : {
-        allowNull: true,
-        type: Sequelize.STRING(10)
-      },
-      complemento : {
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      cidade : {
-        allowNull: true,
-        type: Sequelize.STRING(100)
-      },
-      uf : {
-        allowNull: true,
-        type: Sequelize.STRING(2)
-      },
       //  contato
       email : {
         allowNull: true,

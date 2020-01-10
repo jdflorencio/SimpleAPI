@@ -21,8 +21,8 @@ module.exports = {
         cidade:"Salvador",
         uf: "BA",
         email : "cceciliajosefadacosta@panevale.com.br",
-        telefone : "(71)2897-7557",
-        celular: "(71)98273-7852",
+        /*telefone : "(71)2897-7557",*/
+        /*celular: "(71)98273-7852",*/
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -42,8 +42,8 @@ module.exports = {
         cidade: "Pirassununga",
         uf:"SP",
         email:"posvenda@lorenzoesaraheletronicame.com.br",
-        telefone:"(19)2900-3467",
-        celular:"(19)99180-7025",
+        /*telefone:"(19)2900-3467",*/
+        /*celular:"(19)99180-7025",*/
         createdAt: new Date(),
         updatedAt: new Date(),
       }], 
