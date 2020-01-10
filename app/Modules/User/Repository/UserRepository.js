@@ -24,8 +24,9 @@ exports.login = async (req) => {
 		}
 	}
 	
-	const teste = bcrypt.compare(password, user.password)
+	const authenticated = bcrypt.compare(password, user.password)
 	.then(( result) => {		
+		
 		if (result) {	
 			const id = user.id // essa ID vira do banco de dados
 			var token = jwt.sign({ id }, process.env.SECRET, {
@@ -50,7 +51,7 @@ exports.login = async (req) => {
 		}
 	})
 
-	return teste
+	return authenticated
 }
 
 exports.logout = async (req) => {
