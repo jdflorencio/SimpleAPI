@@ -16,6 +16,8 @@ module.exports = {
           key: 'id'
         },
         type: Sequelize.INTEGER, 
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       endereco : {
         allowNull: true,
@@ -40,7 +42,15 @@ module.exports = {
       uf : {
         allowNull: true,
         type: Sequelize.STRING(2)
-      }      
+      },
+      createdAt: {
+        allowNull: false, 
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false, 
+        type: Sequelize.DATE
+      }
     })
   },
 

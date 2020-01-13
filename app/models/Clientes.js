@@ -88,6 +88,9 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE
   });
   
+  Clientes.associate  = function(models) {
+    Clientes.hasMany(models.enderecos, {foreignkey: 'clientesId', as: 'clienteId'})
+  }
  
   return Clientes;
 }

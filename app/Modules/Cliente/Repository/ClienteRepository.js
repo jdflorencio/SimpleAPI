@@ -1,4 +1,6 @@
-const { clientes } = require('../../../models')
+const { clientes, enderecos } = require('../../../models')
+
+
 const tools = require('../../../Support/Tool')
 exports.getAll = async (req) => {
   const allClientes = await clientes.findAll({attributes: [
@@ -32,18 +34,36 @@ exports.getAll = async (req) => {
 
 exports.getCliente = async (req) => {
   const { idCliente } = req.params
-  const cliente = await clientes.findOne({ where: {
-    id: idCliente
-  }})
+  /*const cliente = await clientes.findOne({ 
+    where: { id: idCliente }
+})*/
+
+
+  const cliente = await clientes.findByPk(idCliente)
+
+  const endereco = await enderecos.findAll({
+    where: {
+      clientesId: idCliente
+    },
+    attributes : {
+      exclude : ['clienteId']
+    }
+ })
+  
   // const {dataValues} = cliente
   if ( cliente.data_nascimento != null) {
       cliente.dataValues.data_nascimento = tools.dateFormat(cliente.data_nascimento)   
   } else if (cliente.data_fundacao != null ) {
     cliente.dataValues.data_fundacao = tools.dateFormat(cliente.data_fundacao)
   }
-  return cliente
+
+const valores = {
+    endereco,
+    cliente
 }
 
+  return valores
+}
 
 exports.addCliente = async (req) => {
   const { body } = req		

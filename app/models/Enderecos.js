@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     clientesId: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'users',
+        model: 'clientes',
         key: 'id'
       }
     },
@@ -88,15 +88,11 @@ module.exports = (sequelize, DataTypes) => {
         msg: "Esse estado federativo não existe!"
       }
     }
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-    },
-    updatedAt: DataTypes.DATE
+    }
   });
   
   Enderecos.associate  = function(models) {
-    Enderecos.belongsTo(models.users, {foreignkey: 'clientesId', as: 'clientes'})
+    Enderecos.belongsTo(models.clientes, {foreignkey: 'clientesId', as: 'clientes'})
   }
   return Enderecos;
 }
