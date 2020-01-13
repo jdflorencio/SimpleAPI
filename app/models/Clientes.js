@@ -10,13 +10,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'users',
-        key: 'id'
-      }
-    },
     tipo: {
         type: DataTypes.ENUM,
         values: ['pf', 'pj'],
@@ -71,95 +64,7 @@ module.exports = (sequelize, DataTypes) => {
     rg: DataTypes.STRING,
     cpf_cnpj: DataTypes.STRING,
     inscricao_estadual: DataTypes.STRING,
-    // endereço
-    endereco : {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len : {
-          args: [1,100],
-          msg: "Esse campo tem que ter entre 1 á 100 caracteres"
-        }
-      }
-    },
-    bairro : {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: {
-          args: [1,60],
-          msg: "Esse campo tem que ter entre 1 á 60 caracteres"
-        }
-      }
-    },
-    numero : {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: {
-          args: [1,10],
-          msg: "Esse campo tem que ter entre 1 á 10 caracteres"
-        }
-      }
-    },
-    complemento : {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: {
-          args: [1,100],
-          msg: "Esse campo tem que ter entre 1 á 100 caracteres"
-        }
-      }
-    },
-    cidade : {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: {
-          args: [1,100],
-          msg: "Esse campo tem que ter entre 1 á 6x caracteres"
-        }
-      }
-    },
-    uf : {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        isIn: {
-          args: [[
-          'AC',
-          'AL',
-          'AP',
-          'AM',
-          'BA',
-          'CE',
-          'DF',
-          'ES',
-          'GO',
-          'MA',
-          'MT',
-          'MS',
-          'MG',
-          'PA',
-          'PB',
-          'PR',
-          'PE',
-          'PI',
-          'RJ',
-          'RN',
-          'RS',
-          'RO',
-          'RR',
-          'SC',
-          'SP',
-          'SE',
-          'TO']
-        ],
-        msg: "Esse estado federativo não existe!"
-      }
-    }
-    },
+   
     //  contato
     email : {
       type: DataTypes.STRING,
@@ -175,15 +80,15 @@ module.exports = (sequelize, DataTypes) => {
        }
       }
     },
-    telefone : DataTypes.STRING,
-    celular : DataTypes.STRING,
+    telefones : DataTypes.JSON,
     createdAt: {
       type: DataTypes.DATE,
     },
     updatedAt: DataTypes.DATE
   });
-  Clientes.associate  = function(models) {
+  
+  /*Clientes.associate  = function(models) {
     Clientes.belongsTo(models.users, {foreignkey: 'userId', as: 'users'})
-  }
+  }*/
   return Clientes;
 }
