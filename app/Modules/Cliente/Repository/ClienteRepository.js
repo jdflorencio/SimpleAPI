@@ -19,8 +19,8 @@ exports.getAll = async (req) => {
     // 'bairro',
     // 'numero',
     // 'complemento',
-    'cidade',
-    'uf',
+    // 'cidade',
+    //'uf',
     //  contato
     // 'email',
     // 'telefone',

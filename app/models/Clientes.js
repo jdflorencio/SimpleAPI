@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
+    
     tipo: {
         type: DataTypes.ENUM,
         values: ['pf', 'pj'],
@@ -87,8 +88,6 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE
   });
   
-  /*Clientes.associate  = function(models) {
-    Clientes.belongsTo(models.users, {foreignkey: 'userId', as: 'users'})
-  }*/
+ 
   return Clientes;
 }
