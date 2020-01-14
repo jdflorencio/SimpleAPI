@@ -96,11 +96,12 @@ module.exports = (sequelize, DataTypes) => {
     onUpdate: 'NO ACTION'
 }) */
 
-/*Clientes.associate  = function(models) {
-  Clientes.hasMany(models.enderecos, {foreignkey: 'cliente_id'})
-}*/
+Clientes.associate  = function(models) {
+
+  console.log(models.Enderecos)
+  Clientes.hasMany(models.enderecos, {foreignkey: 'clienteId'})
+}
 
 
-modelName: 'clientes' 
   return Clientes
 }

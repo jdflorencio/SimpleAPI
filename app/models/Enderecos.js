@@ -1,13 +1,18 @@
+
 module.exports = (sequelize, DataTypes) => {
   const Enderecos = sequelize.define('enderecos', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    cliente_id: {
-      type: DataTypes.INTEGER,
-      field: 'cliente_id'
-    },
+    // cliente_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: 'Clientes', // Can be both a string representing the table name or a Sequelize model
+    //     key: 'id'
+    //   },
+    //   field: 'cliente_id'
+    // },
     bairro : {
       type: DataTypes.STRING,
       allowNull: true,
@@ -85,11 +90,11 @@ module.exports = (sequelize, DataTypes) => {
         msg: "Esse estado federativo não existe!"
       }
     }
-    }
-  });
+  }
+  })
  
   Enderecos.associate  = function(models) {
-    Enderecos.belongsTo(models.clientes, {foreignkey: 'cliente_id'})
+    Enderecos.belongsTo(models.clientes, {foreignkey: 'clienteId'})
   }
 
  return Enderecos

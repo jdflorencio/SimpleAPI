@@ -26,9 +26,11 @@ fs
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+Object.keys(db).forEach(Model=> {
+  if (db[Model].associate) {
+    db[Model].associate(db);
+    
+    console.log('+++++++++++', db, db[Model])
     
   }
 });

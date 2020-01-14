@@ -64,7 +64,7 @@ exports.getCliente = async (req) => {
 //   }
 
 const dadosCliente = {
-    endereco,
+  
     cliente
 }
 
