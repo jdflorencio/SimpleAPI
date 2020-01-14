@@ -4,12 +4,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    clientesId: {
+    cliente_id: {
       type: DataTypes.INTEGER,
-      references: {
-        model: 'clientes',
-        key: 'id'
-      }
+      field: 'cliente_id'
     },
     bairro : {
       type: DataTypes.STRING,
@@ -90,9 +87,10 @@ module.exports = (sequelize, DataTypes) => {
     }
     }
   });
-  
+ 
   Enderecos.associate  = function(models) {
-    Enderecos.belongsTo(models.clientes, {foreignkey: 'clientesId', as: 'clientes'})
+    Enderecos.belongsTo(models.clientes, {foreignkey: 'cliente_id'})
   }
-  return Enderecos;
+
+ return Enderecos
 }

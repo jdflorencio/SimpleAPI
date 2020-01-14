@@ -21,7 +21,7 @@ module.exports = {
         cidade:"Salvador",
         uf: "BA",*/
         email : "cceciliajosefadacosta@panevale.com.br",
-        telefones : JSON.stringify({ "telefones": ["(73)3281-1112"], "celular": ["(73)99115-6650"]}),
+        telefones : JSON.stringify([{numero: "(73)9.9115-6650", tipo: "celular"}, {numero: "(73)3291-1112", tipo: "fixo"}]),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -41,7 +41,7 @@ module.exports = {
         cidade: "Pirassununga",
         uf:"SP",*/
         email:"posvenda@lorenzoesaraheletronicame.com.br",
-        telefones : JSON.stringify({ "telefones": ["(73)3281-1112"], "celular": ["(73)99115-6650"]}),
+        telefones : JSON.stringify([{numero: "(73)9.9115-6650", tipo: "celular"}, {numero: "(73)3291-1112", tipo: "fixo"}]),
         createdAt: new Date(),
         updatedAt: new Date(),
       }], 

@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('enderecos', [
       {
-        clientesId: 1,
+        cliente_id: 1,
         endereco : "Travessa Francisco Alves",
         bairro :  "Marechal Rondon",
         numero :  555,
@@ -15,7 +15,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        clientesId: 2,
+        cliente_id: 2,
         endereco : "Rua Álvaro Barbosa",
         bairro: "Jardim São Lucas",
         numero:"468",
@@ -30,6 +30,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('endenrecos', null, {});
+    return queryInterface.bulkDelete('enderecos', null, {});
   }
 };

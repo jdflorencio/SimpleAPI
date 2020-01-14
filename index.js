@@ -20,8 +20,7 @@ app.use(bodyParser.json())
 app.use('/cliente', routesClientes);
 //ROUTES 
 app.use('/produto', routesProdutos);
-// authentication 
+// authentication   
 app.use('/auth', routesUser)
-
 
 server.listen(3000);

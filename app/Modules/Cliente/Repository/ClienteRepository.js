@@ -39,8 +39,14 @@ exports.getCliente = async (req) => {
 })*/
 
 
-  const cliente = await clientes.findByPk(idCliente)
-
+  const cliente = await clientes.findByPk(idCliente, {
+    include: [
+      {
+        model: enderecos
+      }
+    ]
+  })
+/*
   const endereco = await enderecos.findAll({
     where: {
       clientesId: idCliente
@@ -48,21 +54,21 @@ exports.getCliente = async (req) => {
     attributes : {
       exclude : ['clienteId']
     }
- })
+ })*/
   
-  // const {dataValues} = cliente
-  if ( cliente.data_nascimento != null) {
-      cliente.dataValues.data_nascimento = tools.dateFormat(cliente.data_nascimento)   
-  } else if (cliente.data_fundacao != null ) {
-    cliente.dataValues.data_fundacao = tools.dateFormat(cliente.data_fundacao)
-  }
+// const {dataValues} = cliente
+//   if ( cliente.data_nascimento != null) {
+//       cliente.dataValues.data_nascimento = tools.dateFormat(cliente.data_nascimento)   
+//   } else if (cliente.data_fundacao != null ) {
+//     cliente.dataValues.data_fundacao = tools.dateFormat(cliente.data_fundacao)
+//   }
 
-const valores = {
+const dadosCliente = {
     endereco,
     cliente
 }
 
-  return valores
+  return cliente
 }
 
 exports.addCliente = async (req) => {

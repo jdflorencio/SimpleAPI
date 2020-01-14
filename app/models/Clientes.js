@@ -86,11 +86,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
     },
     updatedAt: DataTypes.DATE
-  });
-  
-  Clientes.associate  = function(models) {
-    Clientes.hasMany(models.enderecos, {foreignkey: 'clientesId', as: 'clienteId'})
-  }
- 
-  return Clientes;
+  },
+  { sequelize, modelName: 'clientes' }
+  );
+  /*
+  Clientes.hasMany(enderecos, {
+    foreignKey: 'clientesId',
+    onDelete: 'CASCADE',
+    onUpdate: 'NO ACTION'
+}) */
+
+/*Clientes.associate  = function(models) {
+  Clientes.hasMany(models.enderecos, {foreignkey: 'cliente_id'})
+}*/
+
+
+modelName: 'clientes' 
+  return Clientes
 }
