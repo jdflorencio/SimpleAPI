@@ -1,4 +1,4 @@
-const { clientes, enderecos } = require('../../../models')
+const { clientes, enderecos , telefones} = require('../../../models')
 
 
 const tools = require('../../../Support/Tool')
@@ -42,31 +42,14 @@ exports.getCliente = async (req) => {
   const cliente = await clientes.findByPk(idCliente, {
     include: [
       {
+        model: telefones
+      },
+      {
         model: enderecos
-      }
+      },
+      
     ]
   })
-/*
-  const endereco = await enderecos.findAll({
-    where: {
-      clientesId: idCliente
-    },
-    attributes : {
-      exclude : ['clienteId']
-    }
- })*/
-  
-// const {dataValues} = cliente
-//   if ( cliente.data_nascimento != null) {
-//       cliente.dataValues.data_nascimento = tools.dateFormat(cliente.data_nascimento)   
-//   } else if (cliente.data_fundacao != null ) {
-//     cliente.dataValues.data_fundacao = tools.dateFormat(cliente.data_fundacao)
-//   }
-
-const dadosCliente = {
-  
-    cliente
-}
 
   return cliente
 }

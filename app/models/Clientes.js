@@ -81,7 +81,6 @@ module.exports = (sequelize, DataTypes) => {
        }
       }
     },
-    telefones : DataTypes.JSON,
     createdAt: {
       type: DataTypes.DATE,
     },
@@ -100,6 +99,7 @@ Clientes.associate  = function(models) {
 
   console.log(models.Enderecos)
   Clientes.hasMany(models.enderecos, {foreignkey: 'clienteId'})
+  Clientes.hasMany(models.telefones, {foreignkey: 'clienteId'})
 }
 
 

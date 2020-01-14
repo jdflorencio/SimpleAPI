@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('enderecos', {
+    return queryInterface.createTable('telefones', {
       id: {
         allowNull: false, 
         autoIncrement: true, 
@@ -17,29 +17,13 @@ module.exports = {
         },
         type: Sequelize.INTEGER, 
       },
-      endereco : {
+      telefone : {
         allowNull: true,
         type: Sequelize.STRING
       },
-      bairro : {
-        allowNull: true,
-        type: Sequelize.STRING(60)
-      },
-      numero : {
-        allowNull: true,
-        type: Sequelize.STRING(10)
-      },
-      complemento : {
+      tipo : {
         allowNull: true,
         type: Sequelize.STRING
-      },
-      cidade : {
-        allowNull: true,
-        type: Sequelize.STRING(100)
-      },
-      uf : {
-        allowNull: true,
-        type: Sequelize.STRING(2)
       },
       createdAt: {
         allowNull: false, 
@@ -52,7 +36,7 @@ module.exports = {
     })
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('enderecos')
+  down: (queryInterface, Sequelize) => {    
+      return queryInterface.dropTable('telefones')
   }
 };
