@@ -1,4 +1,4 @@
-const repository = require('../Repository/ClienteRepository');
+const repository = require('../Repository/ClienteEnderecoRepository');
 
 module.exports = {
 
