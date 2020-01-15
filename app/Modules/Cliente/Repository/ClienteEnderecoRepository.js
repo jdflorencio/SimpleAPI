@@ -18,9 +18,9 @@ exports.getAll = async (req) => {
 }
 
 exports.getEndereco = async (req) => {
-  const { clienteId, id } = req.params
+  const { idCliente, idEndereco } = req.params
   const endereco = await enderecos.findOne({ 
-    where: { id: id }
+    where: { id: idEndereco }
 })
   return endereco
 }
@@ -105,9 +105,9 @@ exports.update = async (req) => {
 }
 
 exports.deleting = async (req) => {
-  const { idCliente } = req.params
+  const { idCliente, idEndereco } = req.params
   const msg = await clientes.destroy({ where: {
-    id: idCliente
+    id: idEndereco
   }})
   .then((result) => { 
     if (result == 0) {

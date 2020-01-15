@@ -3,66 +3,35 @@ const { clientes, enderecos , telefones} = require('../../../models')
 
 const tools = require('../../../Support/Tool')
 exports.getAll = async (req) => {
-  const allClientes = await clientes.findAll({attributes: [
-    'id',
-    'tipo',
-    'nome',
-    'nome_fantasia',
-    // infor pessoas
-    // 'data_nascimento',
-    // 'data_fundacao',
-    // 'nacionalidade',
-    // 'estado_civil',
-    // 'rg',
-    // 'cpf_cnpj',
-    // 'inscricao_estadual',
-    // endereço
-    // 'endereco',
-    // 'bairro',
-    // 'numero',
-    // 'complemento',
-    // 'cidade',
-    //'uf',
-    //  contato
-    // 'email',
-    // 'telefone',
-    // 'celular',
-    'createdAt',	
-    'updatedAt',]})
-  return allClientes
+  const allTelefones = await clientes.findAll({attributes: [
+  'id',
+  'clienteId',
+  'telefone',
+  'tipo',
+  'createdAt',
+  'updatedAt'
+]})
+
+  return allTelefones
 }
 
-exports.getCliente = async (req) => {
-  const { idCliente } = req.params
-  /*const cliente = await clientes.findOne({ 
-    where: { id: idCliente }
-})*/
-
-
-  const cliente = await clientes.findByPk(idCliente, {
-    include: [
-      {
-        model: telefones
-      },
-      {
-        model: enderecos
-      },
-      
-    ]
-  })
-
-  return cliente
+exports.getTelefone = async (req) => {
+  const {clienteId, id } = req.params
+  const telefone = await telefones.findOne({ 
+    where: { id: id }
+})
+  return telefone
 }
 
-exports.addCliente = async (req) => {
+exports.addTelefone = async (req) => {
   const { body } = req		
-  const result = await clientes.create(body)
+  const result = await telefones.create(body)
     .then((resp) => {
       if (resp != null) {
         return {
           status: 201,
           id: resp.null,
-          msg : "Cliente cadastrado com sucesso!" 
+          msg : "telefone cadastrado com sucesso!" 
         }
       }
     })
@@ -87,7 +56,7 @@ exports.addCliente = async (req) => {
 exports.update = async (req) => {
   const { body } = req
   if (body.id) {
-    const foundCliente = await clientes.findOne({ where: {
+    const foundTelefone = await telefones.findOne({ where: {
       id: body.id
     }})
     .then((result) =>{
@@ -98,15 +67,15 @@ exports.update = async (req) => {
       }
     })
 
-    if (foundCliente == false) {
-      return "cliente não encontrado!"
+    if (foundTelefone == false) {
+      return "telefone não encontrado!"
     } else {
-      const result = await clientes.upsert(body)
+      const result = await telefones.upsert(body)
         .then((resp) => {
           if (resp == false) {
             return {
               status: 200,
-              msg: "Cliente atualizado com sucesso!"
+              msg: "Telefone atualizado com sucesso!"
             }
           }
         })
@@ -129,25 +98,25 @@ exports.update = async (req) => {
         return result
     }
   } else {
-   return "cliente não encontrado!"
+   return "Telefone não encontrado!"
   }
 }
 
 exports.deleting = async (req) => {
-  const { idCliente } = req.params
-  const msg = await clientes.destroy({ where: {
-    id: idCliente
+  const { clienteId, id } = req.params
+  const msg = await telefones.destroy({ where: {
+    id: id
   }})
   .then((result) => { 
     if (result == 0) {
       return {
         status: 401,
-        msg: "Cliente não encontrado!"
+        msg: "Telefone não encontrado!"
       }			
     } else {
       return {
         status: 200,
-        msg: "Cliente removido com sucesso!"
+        msg: "Telefone removido com sucesso!"
 
       }
     }
