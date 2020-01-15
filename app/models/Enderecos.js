@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    enedereco : {
+    endereco : {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {

@@ -7,6 +7,7 @@ const clienteEnderecoController = require('../Controllers/ClienteEnderecoControl
 const clienteTelefoneController = require('../Controllers/ClienteTelefoneController')
 //routes.use(verify)
 
+// CLIENTES
 routes.get('/', clienteController.index)
 routes.get('/:idCliente', clienteController.cliente)
 routes.post('/' ,clienteController.create)
@@ -14,7 +15,15 @@ routes.put('/', clienteController.update)
 routes.delete('/:idCliente', clienteController.delete)
 
 // ENDEREÇOS
-routes.get('/:idCliente/endereco/:idEndereco', clienteEnderecoController.enderecos)
+routes.get('/:idCliente/endereco/:idEndereco', clienteEnderecoController.getOne)
+routes.post('/:idCliente/endereco/', clienteEnderecoController.create)
+routes.post('/:idCliente/endereco/:idEndereco', clienteEnderecoController.update)
+routes.delete('/:idCliente/endereco/:idEndereco', clienteEnderecoController.delete)
 
+// TELEFONES
+routes.get('/:idCliente/telefone/:idTelefone', clienteTelefoneController.getOne)
+routes.post('/:idCliente/telefone/', clienteTelefoneController.create)
+routes.post('/:idCliente/telefone/:idTelefone', clienteTelefoneController.update)
+routes.delete('/:idCliente/telefone/:idTelefone', clienteTelefoneController.delete)
 
 module.exports = routes

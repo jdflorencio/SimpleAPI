@@ -16,9 +16,9 @@ exports.getAll = async (req) => {
 }
 
 exports.getTelefone = async (req) => {
-  const {clienteId, id } = req.params
+  const {idCliente, idTelefone } = req.params
   const telefone = await telefones.findOne({ 
-    where: { id: id }
+    where: { id: idTelefone }
 })
   return telefone
 }
