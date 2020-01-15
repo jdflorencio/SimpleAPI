@@ -5,14 +5,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true
     },
-    // cliente_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: 'Clientes', // Can be both a string representing the table name or a Sequelize model
-    //     key: 'id'
-    //   },
-    //   field: 'cliente_id'
-    // },
+    enedereco : {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: {
+          args: [1,150],
+          msg: "Esse campo tem que ter entre 150 á  caracteres"
+        }
+      }
+    },
     bairro : {
       type: DataTypes.STRING,
       allowNull: true,
