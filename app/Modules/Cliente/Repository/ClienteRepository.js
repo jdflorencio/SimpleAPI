@@ -142,14 +142,13 @@ salvarGeral = async (informacoes_gerais) =>{
           field: errors[i].path
         })          
     }
-
     return {
       status: 401,
       errors: fieldMsg
     }
   })
-
   return result
+  
 }
 
 consultarTelefones = async (cliente) => {
