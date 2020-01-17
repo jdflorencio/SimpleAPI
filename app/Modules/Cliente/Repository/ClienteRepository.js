@@ -61,6 +61,7 @@ exports.getGerais = async (req) => {
 }
 
 exports.addCliente = async (req) => {
+  console.log('aqui', req.body)
   const { body } = req		
   const result = await clientes.create(body)
     .then((resp) => {
@@ -84,14 +85,16 @@ exports.addCliente = async (req) => {
       }          
       return {
         status: 401,
-        errors: fieldMsg
+        errors: error
       }
     })
+
+    console.log(result)
   return result
 }
 
 exports.update = async (req) => {
-  
+  console.log('aqui')
   const { body } = req    
   if (body.id) {
     
@@ -105,21 +108,21 @@ exports.update = async (req) => {
         return true
       }
     })
-
-    switch (foundCliente) {
+    switch ( foundCliente ) {
       case false:
-        return 'cliente não encontrado'
+        console.log('mão encontrado')
         break
-      case true:        
+      case true:
         let informacao_gerais = await salvarGeral(body)
+
+        console.log(informacao_gerais)
 
         switch(informacao_gerais.status) {
           case true:
-            let informacoes_telefones = await consultarTelefones(body)
-            console.log('aqui =>',informacoes_telefones)
-            break
-          default:
-            console.log('aqui xxx-----xxx')      
+            console.log('123465')
+            let informacoes_telefones = await consultarItensTableFilho(body, 'telefones')
+            let informacoes_enderecos = await consultarItensTableFilho(body, 'enderecos')    
+            break    
         }
       }
   }
@@ -151,44 +154,68 @@ salvarGeral = async (informacoes_gerais) =>{
   
 }
 
-consultarTelefones = async (cliente) => {
- const { id } = cliente
- let lista_telefones = cliente.telefones
+consultarItensTableFilho = async (cliente, table) => {  
+  const { id } = cliente
+  let lista = table === "enderecos"? cliente.enderecos : cliente.telefones
 
-  for(i in lista_telefones) {
-    switch ("id" in lista_telefones[i]) {
-      case true:        
-        const foundTelefone = await telefones.findOne({ where: {
-          id: lista_telefones[i].id
+  const tabelaSelecionada = table === "enderecos"? enderecos : telefones  
+  for(i in lista) {    
+    switch ("id" in lista[i]) {
+      case true:
+        const registroEncontrado = await tabelaSelecionada.findOne({ where: {
+          id: lista[i].id
 
         }})
-          .then((result) => {
-            if (result == null) {
-              return false
-
-            } else {
-              return true
+        .then((result) => {
+          if (result == null) {
+            return false
+          } else {
+            return true
             }
           })
 
-        const inserindo_atualizando = foundTelefone ? 
-          atualizarTelefones(lista_telefones[i]) : 
-          console.log('telefone não foi encontrado para ser atualizado')
-        break 
-      case false:
-        let telefoneNovo = {
-          clienteId:id,
-          telefone: lista_telefones[i].telefone
+        switch (registroEncontrado) {
+          case true:
+            const inserindo_atualizando = await atualizarTelefones(lista[i], table)
+          case false:
+            console.log('telefone não foi encontrado para ser atualizado')
         }
-        console.log(telefoneNovo)
-        const inseridos = adicionarTelefones(telefoneNovo)
-        return inseridos
-    } 
+        
+        break 
+          
+        case false:  
+           
+          switch(table) {
+            case 'telefones':
+              let telefoneNovo = {
+                clienteId:id,
+                telefone: lista[i].telefone
+              }
+
+              const inseridos = await gravarNovos(telefoneNovo, 'telefones')
+              
+              break
+            case 'enderecos':     
+              let enderecoLista = {
+                clienteId: id,
+                endereco: lista[i].endereco,
+                bairro: lista[i].bairro,
+                numero: lista[i].numero,
+                complemento: lista[i].complemento,
+                cidade: lista[i].cidade,
+                uf: lista[i].uf,
+              }              
+            gravarNovos(enderecoLista, 'enderecos')
+        }
+    }
   } 
 }
 
-atualizarTelefones = async (telefone) => {  
-  const result = await telefones.upsert(telefone)
+atualizarTelefones = async (telefone, table) => {  
+  const tabelaSelecionada = table === "enderecos" ? enderecos : telefones
+
+  ver(209,{intencao: "FOI INSERIDO?", table: table, metodo: "atualizarTelefones"},telefone)
+  const result = await tabelaSelecionada.upsert(telefone)
   .then((resp) => {
     if (resp == false) {
       return {
@@ -210,11 +237,15 @@ atualizarTelefones = async (telefone) => {
       errors: fieldMsg
     }
   })
+
   return result
 }
 
-adicionarTelefones = async (telefone) => {
-  const result = await telefones.create(telefone)
+gravarNovos = async (informacoes, table) => {
+  
+  const tabelaSelecionada = table === "enderecos" ? enderecos : telefones
+  const result = await tabelaSelecionada.create(informacoes)
+
     .then((resp) => {
       if (resp != null) {
         return {
@@ -258,7 +289,6 @@ exports.deleting = async (req) => {
       return {
         status: 200,
         msg: "Cliente removido com sucesso!"
-
       }
     }
   })
@@ -272,3 +302,38 @@ exports.ufList = async (req) => {
   
   return msg
 }
+
+ver =  (linha, table ,value) => {
+console.log('.                                                                                           .')
+  console.log('\x1b[36m%s\x1b[0m',`------- ${table.metodo} ${table.intencao} ------------------------------------------`)
+
+   const cors =  [
+    "\x1b[0m",
+    "\x1b[1m",
+    "\x1b[2m",
+    "\x1b[4m",
+    "\x1b[5m",
+    "\x1b[7m",
+    "\x1b[8m",
+    "\x1b[30m",
+    "\x1b[31m",
+    "\x1b[32m",
+    "\x1b[33m",
+    "\x1b[34m",
+    "\x1b[35m",
+    "\x1b[36m",
+    "\x1b[37m",
+    "\x1b[40m",
+    "\x1b[41m",
+    "\x1b[42m",
+    "\x1b[43m",
+    "\x1b[44m",
+    "\x1b[45m",
+    "\x1b[46m",
+    "\x1b[47m"
+  ]
+  const cor = Math.floor((Math.random() * 23) + 1)
+  console.log( '\x1b[33m%s\x1b[0m', '====== MONITORANDO ======>',`linha(${linha}) -TABLE: ${table.table} - `, value)
+  console.log('\x1b[36m%s\x1b[0m','----------------------------------------------------------------------------')
+
+} 

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: {
           args: [1,14],
-          msg: "Esse campo tem que ter entre 1 á 60 caracteres"
+          msg: "Esse campo tem que ter entre 1 á 14 caracteres"
         }
       }
     },
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: {
           args: [1,10],
-          msg: "Esse campo tem que ter entre 1 á 60 caracteres"
+          msg: "Esse campo tem que ter entre 1 á 10 caracteres"
         }
       }
     }
