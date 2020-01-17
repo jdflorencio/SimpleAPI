@@ -10,6 +10,10 @@ module.exports = {
     const clientes =  await repository.getCliente(req);
     return res.send(clientes);
   },
+  async getGerais(req, res) {
+    const clientes =  await repository.getGerais(req);
+    return res.send(clientes);
+  },
 
   async create(req, res) {
     const cliente =  await repository.addCliente(req);

@@ -26,6 +26,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING(60)
       },
+      sexo: {
+        allowNull: true,
+        type: Sequelize.STRING(9)
+      },
       nome_fantasia: {
         allowNull: true,
         type: Sequelize.STRING(60),
@@ -63,12 +67,7 @@ module.exports = {
       email : {
         allowNull: true,
         type: Sequelize.STRING(100)
-      },
-      telefones : {
-        allowNull: true,
-        type: Sequelize.JSON
-      },
-    
+      },    
       createdAt: {
         allowNull: false, 
         type: Sequelize.DATE

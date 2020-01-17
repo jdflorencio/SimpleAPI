@@ -24,5 +24,9 @@ module.exports = {
   async delete(req, res) {
     const telefone =  await repository.deleting(req);   
     return res.status(telefone.status).send(telefone);
+  },
+  async tiposTelefone(req, res) {
+    const telefone =  await repository.tipoTelefone(req);   
+    return res.status(telefone.status).send(telefone);
   }
 }

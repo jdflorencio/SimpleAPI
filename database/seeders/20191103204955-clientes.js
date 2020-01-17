@@ -14,6 +14,7 @@ module.exports = {
         estado_civil: "SOLTEIRA",
         rg: "44.295.734-8",
         cpf_cnpj: "036.725.120-52",
+        sexo: "feminino",
         /*endereco : "Travessa Francisco Alves",
         bairro :  "Marechal Rondon",
         numero :  555,

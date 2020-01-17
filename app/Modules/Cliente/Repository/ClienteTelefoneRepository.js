@@ -3,14 +3,10 @@ const { clientes, enderecos , telefones} = require('../../../models')
 
 const tools = require('../../../Support/Tool')
 exports.getAll = async (req) => {
-  const allTelefones = await clientes.findAll({attributes: [
-  'id',
-  'clienteId',
-  'telefone',
-  'tipo',
-  'createdAt',
-  'updatedAt'
-]})
+  const { idCliente} = req.params
+  const allTelefones = await telefones.findAll({where: {
+    clienteId: idCliente
+  }})
 
   return allTelefones
 }
@@ -127,7 +123,13 @@ exports.deleting = async (req) => {
   return msg
 }
 
-exports.ufList = async (req) => {
+exports.tipoTelefone = async (req) => {
   
-  return msg
+  return {
+    status: 200,
+    tipos: [
+      'Fixo',
+      'Celular'
+    ]
+  }
 }

@@ -34,6 +34,19 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    sexo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate :{
+        notEmpty: {
+          msg: "Esse campo não pode ser vazio!"
+        }, 
+        len: {
+          args: [1,9],
+          msg: "Esse campo deve ter entre 1 a 9 caracteres"
+        }
+      }
+    },
     nome_fantasia: {
       type: DataTypes.STRING,
       allowNull: true,

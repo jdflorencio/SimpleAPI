@@ -3,17 +3,10 @@ const { clientes, enderecos} = require('../../../models')
 
 const tools = require('../../../Support/Tool')
 exports.getAll = async (req) => {
-  const allEnderecos = await endereco.findAll({attributes: [
-    'id',
-    'clienteId',
-    'endereco',
-    'bairro',
-    'numero',
-    'complemento',
-    'cidade',
-    'uf ',
-    'createdAt',	
-    'updatedAt',]})
+  const { idCliente } = req.params
+  const allEnderecos = await enderecos.findAll({where:
+    { clienteId: idCliente}
+  })
   return allEnderecos
 }
 
