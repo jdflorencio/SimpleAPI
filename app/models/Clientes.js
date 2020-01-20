@@ -110,9 +110,8 @@ module.exports = (sequelize, DataTypes) => {
 
 Clientes.associate  = function(models) {
 
-  console.log(models.Enderecos)
-  Clientes.hasMany(models.enderecos, {foreignkey: 'clienteId'})
-  Clientes.hasMany(models.telefones, {foreignkey: 'clienteId'})
+  Clientes.hasMany(models.enderecos, {foreignkey: 'clienteId', onDelete: 'cascade', onUpdate: 'NO ACTION'})
+  Clientes.hasMany(models.telefones, {foreignkey: 'clienteId', onDelete: 'cascade', onUpdate: 'NO ACTION'} )
 }
 
 

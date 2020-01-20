@@ -13,8 +13,10 @@ module.exports = {
         allowNull: false, 
         references: {
           model:'clientes',
-          key: 'id'
+          key: 'id',
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
         type: Sequelize.INTEGER, 
       },
       endereco : {

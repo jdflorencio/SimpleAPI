@@ -15,6 +15,8 @@ module.exports = {
           model:'clientes',
           key: 'id'
         },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
         type: Sequelize.INTEGER, 
       },
       telefone : {

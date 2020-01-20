@@ -280,7 +280,9 @@ gravarNovos = async (informacoes, table) => {
 }
 
 exports.deleting = async (req) => {
+  console.log('aqui')
   const { idCliente } = req.params
+
   const msg = await clientes.destroy({ where: {
     id: idCliente
   }})
@@ -300,6 +302,8 @@ exports.deleting = async (req) => {
   .catch((error) => {
     return error
   })
+
+ console.log(msg)
   return msg
 }
 
