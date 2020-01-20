@@ -31,5 +31,6 @@ routes.delete('/:idCliente/telefone/:idTelefone', clienteTelefoneController.dele
 
 routes.get('/:idCliente/telefonetipo', clienteTelefoneController.tiposTelefone)
 
+// LISTA DE UF'S
 
 module.exports = routes

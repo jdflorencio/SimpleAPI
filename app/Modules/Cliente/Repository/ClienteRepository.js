@@ -7,25 +7,6 @@ exports.getAll = async (req) => {
     'tipo',
     'nome',
     'nome_fantasia',
-    // infor pessoas
-    // 'data_nascimento',
-    // 'data_fundacao',
-    // 'nacionalidade',
-    // 'estado_civil',
-    // 'rg',
-    // 'cpf_cnpj',
-    // 'inscricao_estadual',
-    // endereço
-    // 'endereco',
-    // 'bairro',
-    // 'numero',
-    // 'complemento',
-    // 'cidade',
-    //'uf',
-    //  contato
-    // 'email',
-    // 'telefone',
-    // 'celular',
     'createdAt',	
     'updatedAt',]})
   return allClientes
@@ -33,10 +14,6 @@ exports.getAll = async (req) => {
 
 exports.getCliente = async (req) => {
   const { idCliente } = req.params
-  /*const cliente = await clientes.findOne({ 
-    where: { id: idCliente }
-})*/
-
   const cliente = await clientes.findByPk(idCliente, {
     include: [
       {
@@ -84,8 +61,8 @@ exports.addCliente = async (req) => {
           fieldMsg.push({
             msg: errors[i].message,
             field: errors[i].path
-          })            
-      } 
+          })
+      }
         
       return {
         status: 401,
@@ -98,13 +75,13 @@ exports.addCliente = async (req) => {
     let informacoes_telefones = await consultarItensTableFilho(body, 'telefones')
     let informacoes_enderecos = await consultarItensTableFilho(body, 'enderecos')
 
-    console.log(informacoes_enderecos)
 
   return result
 }
 
 exports.update = async (req) => {
-  console.log('aqui')
+  
+  
   const { body } = req    
   if (body.id) {
     
@@ -180,10 +157,14 @@ consultarItensTableFilho = async (cliente, table) => {
           })
 
         switch (registroEncontrado) {
+
           case true:
             const inserindo_atualizando = await atualizarTelefones(lista[i], table)
+            break
           case false:
             console.log('telefone não foi encontrado para ser atualizado')
+            break
+         
         }
         
         break 
@@ -214,13 +195,12 @@ consultarItensTableFilho = async (cliente, table) => {
         console.log('não vou add')
       break
     }
-  } 
+  }
 }
 
 atualizarTelefones = async (telefone, table) => {  
   const tabelaSelecionada = table === "enderecos" ? enderecos : telefones
 
-  ver(209,{intencao: "FOI INSERIDO?", table: table, metodo: "atualizarTelefones"},telefone)
   const result = await tabelaSelecionada.upsert(telefone)
   .then((resp) => {
     if (resp == false) {
@@ -242,7 +222,6 @@ atualizarTelefones = async (telefone, table) => {
       errors: fieldMsg
     }
   })
-
   return result
 }
 
@@ -307,84 +286,37 @@ exports.deleting = async (req) => {
   return msg
 }
 
-exports.ufList = async (req) => {
-  
-  return msg
-}
+exports.ufList = async () => {
 
-ver =  (linha, table ,value) => {
-console.log('.                                                                                           .')
-  console.log('\x1b[36m%s\x1b[0m',`------- ${table.metodo} ${table.intencao} ------------------------------------------`)
-
-   const cors =  [
-    "\x1b[0m",
-    "\x1b[1m",
-    "\x1b[2m",
-    "\x1b[4m",
-    "\x1b[5m",
-    "\x1b[7m",
-    "\x1b[8m",
-    "\x1b[30m",
-    "\x1b[31m",
-    "\x1b[32m",
-    "\x1b[33m",
-    "\x1b[34m",
-    "\x1b[35m",
-    "\x1b[36m",
-    "\x1b[37m",
-    "\x1b[40m",
-    "\x1b[41m",
-    "\x1b[42m",
-    "\x1b[43m",
-    "\x1b[44m",
-    "\x1b[45m",
-    "\x1b[46m",
-    "\x1b[47m"
-  ]
-  const cor = Math.floor((Math.random() * 23) + 1)
-  console.log( '\x1b[33m%s\x1b[0m', '====== MONITORANDO ======>',`linha(${linha}) -TABLE: ${table.table} - `, value)
-  console.log('\x1b[36m%s\x1b[0m','----------------------------------------------------------------------------')
-
-} 
-
-teste = () => {
   return {
-    
-    "tipo": "pf",
-    "nome": "Cecília Josefa da Costa",
-    "sexo": "feminino",
-    
-    "data_nascimento": "1987-08-18",
-    
-    "nacionalidade": "BRASILEIRO",
-    "estado_civil": "SOLTEIRA",
-    "rg": "44.295.734-8",
-    "cpf_cnpj": "036.725.120-52",
-    
-    "email": "cceciliajosefadacosta@panevale.com.br",
-    
-    "telefones": [
-      {
-      
-        "telefone": "(73)99115-6650",
-        "tipo": "Celular",
-      },
-      {
-        
-        "telefone": "(73)3013-5050",
-        "tipo": "Fixo"
+    status: 200,
+    ufs:[
+          'AC',
+          'AL',
+          'AP',
+          'AM',
+          'BA',
+          'CE',
+          'DF',
+          'ES',
+          'GO',
+          'MA',
+          'MT',
+          'MS',
+          'MG',
+          'PA',
+          'PB',
+          'PR',
+          'PE',
+          'PI',
+          'RJ',
+          'RN',
+          'RS',
+          'RO',
+          'RR',
+          'SC',
+          'SP',
+          'SE',
+          'TO']
       }
-    ],
-    "enderecos": [
-      {
-        
-        "endereco": "Travessa Francisco Alves",
-        "bairro": "Marechal Rondon",
-        "numero": "555",
-        "complemento": "perto da mercado da esquina",
-        "cidade": "Salvador",
-        "uf": "BA"
-      }
-    ]
-  }
 }

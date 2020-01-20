@@ -10,6 +10,7 @@ module.exports = {
     const clientes =  await repository.getCliente(req);
     return res.send(clientes);
   },
+  
   async getGerais(req, res) {
     const clientes =  await repository.getGerais(req);
     return res.send(clientes);
@@ -28,5 +29,10 @@ module.exports = {
   async delete(req, res) {
     const cliente =  await repository.deleting(req);   
     return res.status(cliente.status).send(cliente);
+  },
+
+  async uf(req, res) {
+    const ufs =  await repository.ufList(req);   
+    return res.status(ufs.status).send(ufs);
   }
 }
