@@ -61,8 +61,9 @@ exports.getGerais = async (req) => {
 }
 
 exports.addCliente = async (req) => {
-  console.log('aqui', req.body)
-  const { body } = req		
+  
+   const { body } = req
+// const body = teste()
   const result = await clientes.create(body)
     .then((resp) => {
       if (resp != null) {
@@ -75,21 +76,30 @@ exports.addCliente = async (req) => {
     })
     .catch((error) => {
       const {errors} = error
+      
       let fieldMsg = []
+      
       for (i in errors)
       {
           fieldMsg.push({
             msg: errors[i].message,
             field: errors[i].path
           })            
-      }          
+      } 
+        
       return {
         status: 401,
         errors: error
       }
     })
 
-    console.log(result)
+    body.id = result.id
+    // console.log(body)
+    let informacoes_telefones = await consultarItensTableFilho(body, 'telefones')
+    let informacoes_enderecos = await consultarItensTableFilho(body, 'enderecos')
+
+    console.log(informacoes_enderecos)
+
   return result
 }
 
@@ -110,16 +120,11 @@ exports.update = async (req) => {
     })
     switch ( foundCliente ) {
       case false:
-        console.log('mão encontrado')
         break
       case true:
         let informacao_gerais = await salvarGeral(body)
-
-        console.log(informacao_gerais)
-
         switch(informacao_gerais.status) {
           case true:
-            console.log('123465')
             let informacoes_telefones = await consultarItensTableFilho(body, 'telefones')
             let informacoes_enderecos = await consultarItensTableFilho(body, 'enderecos')    
             break    
@@ -182,9 +187,7 @@ consultarItensTableFilho = async (cliente, table) => {
         }
         
         break 
-          
         case false:  
-           
           switch(table) {
             case 'telefones':
               let telefoneNovo = {
@@ -207,6 +210,9 @@ consultarItensTableFilho = async (cliente, table) => {
               }              
             gravarNovos(enderecoLista, 'enderecos')
         }
+      case false:
+        console.log('não vou add')
+      break
     }
   } 
 }
@@ -231,7 +237,6 @@ atualizarTelefones = async (telefone, table) => {
           field: errors[i].path
         })          
     }
-
     return {
       status: 401,
       errors: fieldMsg
@@ -337,3 +342,45 @@ console.log('.                                                                  
   console.log('\x1b[36m%s\x1b[0m','----------------------------------------------------------------------------')
 
 } 
+
+teste = () => {
+  return {
+    
+    "tipo": "pf",
+    "nome": "Cecília Josefa da Costa",
+    "sexo": "feminino",
+    
+    "data_nascimento": "1987-08-18",
+    
+    "nacionalidade": "BRASILEIRO",
+    "estado_civil": "SOLTEIRA",
+    "rg": "44.295.734-8",
+    "cpf_cnpj": "036.725.120-52",
+    
+    "email": "cceciliajosefadacosta@panevale.com.br",
+    
+    "telefones": [
+      {
+      
+        "telefone": "(73)99115-6650",
+        "tipo": "Celular",
+      },
+      {
+        
+        "telefone": "(73)3013-5050",
+        "tipo": "Fixo"
+      }
+    ],
+    "enderecos": [
+      {
+        
+        "endereco": "Travessa Francisco Alves",
+        "bairro": "Marechal Rondon",
+        "numero": "555",
+        "complemento": "perto da mercado da esquina",
+        "cidade": "Salvador",
+        "uf": "BA"
+      }
+    ]
+  }
+}

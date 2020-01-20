@@ -99,9 +99,10 @@ exports.update = async (req) => {
 }
 
 exports.deleting = async (req) => {
-  const { clienteId, id } = req.params
-  const msg = await telefones.destroy({ where: {
-    id: id
+  
+  const { idTelefone } = req.params
+    const msg = await telefones.destroy({ where: {
+    id: idTelefone
   }})
   .then((result) => { 
     if (result == 0) {
