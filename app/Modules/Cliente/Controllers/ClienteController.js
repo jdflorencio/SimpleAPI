@@ -1,7 +1,10 @@
 const repository = require('../Repository/ClienteRepository');
 
+
+
 module.exports = {
   async index(req, res) {
+    const ClienteRepository = repository
     const clientes =  await repository.getAll(req);
     return res.send(clientes);
   },

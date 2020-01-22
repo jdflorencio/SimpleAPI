@@ -10,7 +10,8 @@ const routesProdutos = require('./app/Modules/Produto/Routes/ProdutoRoute');
 const routesUser = require('./app/Modules/User/Routes/UserRoute');
 const server = require('http').Server(app);
 
-logger.error('testando novo log')
+// logger.verbose('teste','testando novo log')
+
 
 /* CONFIG */
 app.use(cors())
