@@ -140,8 +140,3 @@ class ClienteRepository {
 
 let cliente = new ClienteRepository()
 module.exports = cliente
-
-
-
-
-
