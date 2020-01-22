@@ -3,12 +3,13 @@ validateEmail = (email) => {
   return re.test(String(email).toLowerCase());
 }
 
-
 module.exports = (sequelize, DataTypes) => {
   const Clientes = sequelize.define('clientes', {
     id: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true, 
+        autoIncrement: true
+
     },
     
     tipo: {

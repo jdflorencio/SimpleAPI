@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Enderecos = sequelize.define('enderecos', {
     id: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     endereco : {
       type: DataTypes.STRING,
