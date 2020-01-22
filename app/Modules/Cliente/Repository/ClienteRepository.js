@@ -1,7 +1,8 @@
 const { clientes, enderecos , telefones} = require('../../../models')
-
 const tools = require('../../../Support/Tool')
+
 exports.getAll = async (req) => {
+  
   const allClientes = await clientes.findAll({attributes: [
     'id',
     'tipo',
@@ -10,6 +11,7 @@ exports.getAll = async (req) => {
     'createdAt',	
     'updatedAt',]})
   return allClientes
+
 }
 
 exports.getCliente = async (req) => {
@@ -79,8 +81,7 @@ exports.addCliente = async (req) => {
   return result
 }
 
-exports.update = async (req) => {
-  
+exports.update = async (req) => {  
   
   const { body } = req    
   if (body.id) {
@@ -110,7 +111,7 @@ exports.update = async (req) => {
   }
 }
 
-salvarGeral = async (informacoes_gerais) =>{
+salvarGeral = async (informacoes_gerais) => {
   const result = await clientes.upsert(informacoes_gerais)
   .then((resp) => {
     if (resp == false) {

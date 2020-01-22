@@ -1,4 +1,5 @@
 const express = require('express');
+const logger =  require('./app/utils/logger')
 const bodyParser = require('body-parser');
 const app = express();
 // require('dotenv').config();
@@ -8,6 +9,8 @@ const routesClientes = require('./app/Modules/Cliente/Routes/ClienteRoute');
 const routesProdutos = require('./app/Modules/Produto/Routes/ProdutoRoute');
 const routesUser = require('./app/Modules/User/Routes/UserRoute');
 const server = require('http').Server(app);
+
+logger.error('testando novo log')
 
 /* CONFIG */
 app.use(cors())
@@ -23,4 +26,4 @@ app.use('/produto', routesProdutos);
 // authentication   
 app.use('/auth', routesUser)
 
-server.listen(3000);
+server.listen(3333);
