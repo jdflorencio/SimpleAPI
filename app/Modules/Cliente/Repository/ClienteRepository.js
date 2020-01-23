@@ -1,6 +1,8 @@
 const { clientes, enderecos , telefones, sequelize} = require('../../../models')
 const tools = require('../../../Support/Tool')
 const logger =  require('../../../utils/logger')
+const {parseISO, format, formatRelative, formatDistance}  = require('date-fns');
+// const frenchLocale = require(‘date-fns/locale/fr’);
 
 class ClienteRepository {
 
@@ -12,68 +14,93 @@ class ClienteRepository {
         'tipo',
         'nome',
         'nome_fantasia',
-        'createdAt',	
-        'updatedAt',]})
+        [sequelize.fn('date_format', sequelize.col('createdAt'), '%d/%m/%Y'), 'createdAt'],
+        [sequelize.fn('date_format' , sequelize.col('updatedAt'), '%d/%m/%Y ás %H:%m:%s' ), 'updatedAt']
+      ]})        
+        
       return allClientes
     }
     catch( error ) {
-      logger.verbose(error)
-    }
+      this.retornoExecao( error )
+     }
   }
 
   async getCliente(req){
-    const { idCliente } = req.params
-    const cliente = await clientes.findByPk(idCliente, {
-      include: [
-        {
-          model: telefones,
-          attributes: {
-            exclude: ['id']
-          }     
-        },
-        {
-          model: enderecos,
-          attributes: {
-            exclude: ['id']
-          }     
-        },
-        
-      ],
-    })
-    return cliente
+    
+    try {
+      const { idCliente } = req.params
+      const cliente = await clientes.findByPk(idCliente, {
+        include: [
+          {
+            model: telefones,
+            attributes: {
+              exclude: ['id']
+            }     
+          },
+          {
+            model: enderecos,
+            attributes: {
+              exclude: ['id']
+            }     
+          },
+        ],
+      })
+      return cliente
+
+    } catch(error) {
+      this.retornoExecao( error )
+    }
   }
 
   async getGerais(req) {
-    const { idCliente } = req.params
-    const cliente = await clientes.findOne({ 
-      where: { id: idCliente }
-    })
 
-    return cliente
+    try {
+
+      const { idCliente } = req.params
+      const cliente = await clientes.findOne({ where: { id: idCliente } })  
+      return cliente
+
+    } catch( error ) {
+      this.retornoExecao( error )
+    }
   }
 
   async addCliente(req){
 
     try {
-      
+
       let transaction = await sequelize.transaction();
       const { body } = req
       const cliente = await clientes.create(body, {transaction: transaction})
       const { id } = cliente
 
       body.enderecos.map((endereco) => {
+        if (endereco.updatedAt) {
+            delete endereco.updatedAt
+
+        } else if (endereco.createdAt) {
+            delete endereco.createdAt
+        }
+
         endereco.clienteId = id
       })
 
       body.telefones.map((telefone) => {
-        telefone.clienteId = id        
+        if (telefone.updatedAt) {
+          delete telefone.updatedAt
+
+      } else if (telefone.createdAt) {
+          delete telefone.createdAt
+      }
+
+        telefone.clienteId = id
       })
 
       await telefones.bulkCreate(body.telefones, {transaction: transaction})
       await enderecos.bulkCreate(body.enderecos, {transaction: transaction})
       await transaction.commit();
 
-      return {status: 200, msg: "Adicionando com Sucesso!"}
+      return {status: 200, msg: "Adicionando com Sucesso!", id: id}
     
     } catch (error) {
       return this.retornoExecao(error)      
@@ -94,12 +121,26 @@ class ClienteRepository {
         await telefones.destroy({where: {clienteId: body.id}}, {transaction: transaction})
 
         body.enderecos.map( endereco => {
+          if (endereco.updatedAt) {
+            delete endereco.updatedAt
+
+          } else if (endereco.createdAt) {
+            delete endereco.createdAt
+          }
+          
           if (endereco.clienteId === undefined) {
             endereco.clienteId = body.id
           }
         })
         
         body.telefones.map( telefone => {
+          if (telefone.updatedAt) {
+            delete telefone.updatedAt
+
+          } else if (telefone.createdAt) {
+            delete telefone.createdAt
+          }
+          
           if (telefone.clienteId === undefined) {
             telefone.clienteId = body.id
           }
@@ -131,8 +172,6 @@ class ClienteRepository {
     
     try {
       
-      const {errors} = erro
-      logger.error(errors)
       let fieldMsg = []
 
       errors.map( (er ) => {
@@ -145,6 +184,7 @@ class ClienteRepository {
       return  { status:401, errors:fieldMsg  }
 
     } catch (error) {
+  
       return {status: 500, msg: error }      
     }
   }

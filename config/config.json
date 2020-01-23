@@ -5,7 +5,12 @@
     "database": "simpleERP",
     "host": "172.24.0.2",
     "dialect": "mysql",
-    "timezone": "+03:00"
+    "dialectOptions": {
+      "useUTC": false, 
+      "dateStrings": true,
+      "typeCast": true
+    },
+    "timezone": "-03:00"
   },
   "test": {
     "username": "root",
