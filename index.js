@@ -17,11 +17,26 @@ app.use(cors())
 app.use(bodyParser.json())
     
 // console.log(process.env.DB_HOST)
-//ROUTES 
-app.use('/cliente', routesClientes);
-//ROUTES 
-app.use('/produto', routesProdutos);
-// authentication   
+
+
+app.use('/cliente', routesClientes)
+app.use('/produto', routesProdutos)
 app.use('/auth', routesUser)
+
+// PARA ROTAS NÃO EXISTENTE
+app.use((req, res, next) => {
+  const erro = new Error('Não encontrado')  
+  erro.status = 404
+  next(erro)
+})
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500)
+  return res.send({
+    erro: {
+      msg: error.message
+    }
+  })
+})
 
 server.listen(3333);
