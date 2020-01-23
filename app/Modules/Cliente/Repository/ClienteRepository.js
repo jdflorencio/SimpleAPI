@@ -53,8 +53,7 @@ class ClienteRepository {
   }
 
   async addCliente(req){
-
-   console.log('aqui')
+    console.log('aqui')
     try {
       let transaction = await sequelize.transaction();
       const { body } = req
