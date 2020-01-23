@@ -53,8 +53,9 @@ class ClienteRepository {
   }
 
   async addCliente(req){
-    console.log('aqui')
+
     try {
+      
       let transaction = await sequelize.transaction();
       const { body } = req
       const cliente = await clientes.create(body, {transaction: transaction})
@@ -75,18 +76,7 @@ class ClienteRepository {
       return {status: 200, msg: "Adicionando com Sucesso!"}
     
     } catch (error) {
-      const {errors} = error        
-        let fieldMsg = []
-        for (i in errors) {
-            fieldMsg.push({
-              msg: errors[i].message,
-              field: errors[i].path
-            })
-        }
-        return {
-          status: 401,
-          errors: error
-        }
+      return this.retornoExecao(error)      
     }
   }
 
@@ -122,19 +112,43 @@ class ClienteRepository {
         return {status: 200, msg: "Atualizado com sucesso!"}
       }      
     } catch ( error ) {
-      logger.error("deu erro")
-      logger.error(error)
+      return this.retornoExecao(error)      
     }    
   }
 
   async deleting(req){
     try{
-      const { idCliente } = req.params
+
+      const { idCliente } = req.params      
       const msg = await clientes.destroy({ where: {id: idCliente}})
+
     } catch ( error ) {
-      logger.error(error)
+       return this.retornoExecao( error )
     }
   }
+
+  retornoExecao(erro) {
+    
+    try {
+      
+      const {errors} = erro
+      logger.error(errors)
+      let fieldMsg = []
+
+      errors.map( (er ) => {
+        fieldMsg.push({
+          fiel: er.path,
+          msg: er.message
+        })
+      })
+
+      return  { status:401, errors:fieldMsg  }
+
+    } catch (error) {
+      return {status: 500, msg: error }      
+    }
+  }
+
 }
 
 let cliente = new ClienteRepository()
