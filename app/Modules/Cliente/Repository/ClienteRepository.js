@@ -1,7 +1,7 @@
 const { clientes, enderecos , telefones, sequelize} = require('../../../models')
 const tools = require('../../../Support/Tool')
 const logger =  require('../../../utils/logger')
-const {parseISO, format, formatRelative, formatDistance}  = require('date-fns');
+// const {parseISO, format, formatRelative, formatDistance}  = require('date-fns');
 // const frenchLocale = require(‘date-fns/locale/fr’);
 
 class ClienteRepository {
@@ -15,14 +15,14 @@ class ClienteRepository {
         'nome',
         'nome_fantasia',
         [sequelize.fn('date_format', sequelize.col('createdAt'), '%d/%m/%Y'), 'createdAt'],
-        [sequelize.fn('date_format' , sequelize.col('updatedAt'), '%d/%m/%Y ás %H:%m:%s' ), 'updatedAt']
-      ]})        
-        
+        [sequelize.fn('date_format' , sequelize.col('updatedAt'), '%d/%m/%Y às %H:%m:%s' ), 'updatedAt']
+      ]})
+
       return allClientes
     }
     catch( error ) {
       this.retornoExecao( error )
-     }
+    }
   }
 
   async getCliente(req){
@@ -61,6 +61,7 @@ class ClienteRepository {
       return cliente
 
     } catch( error ) {
+      
       this.retornoExecao( error )
     }
   }
@@ -69,7 +70,7 @@ class ClienteRepository {
 
     try {
 
-      let transaction = await sequelize.transaction();
+      let transaction = await sequelize.transaction()
       const { body } = req
       const cliente = await clientes.create(body, {transaction: transaction})
       const { id } = cliente
@@ -103,6 +104,7 @@ class ClienteRepository {
       return {status: 200, msg: "Adicionando com Sucesso!", id: id}
     
     } catch (error) {
+      await transaction.rollback()
       return this.retornoExecao(error)      
     }
   }
@@ -153,23 +155,25 @@ class ClienteRepository {
         return {status: 200, msg: "Atualizado com sucesso!"}
       }      
     } catch ( error ) {
+      await transaction.rollback()
       return this.retornoExecao(error)      
-    }    
-  }
-
-  async deleting(req){
-    try{
-
-      const { idCliente } = req.params      
-      const msg = await clientes.destroy({ where: {id: idCliente}})
-
-    } catch ( error ) {
-       return this.retornoExecao( error )
     }
   }
 
-  retornoExecao(erro) {
+  async deleting(req) {
     
+    try{
+      let transaction = await sequelize.transaction()
+      const { idCliente } = req.params      
+      const msg = await clientes.destroy({ where: {id: idCliente}}, {transaction: transaction})
+
+    } catch ( error ) {
+      await transaction.rollback()
+      return this.retornoExecao( error )
+    }
+  }
+
+  retornoExecao(erro) {    
     try {
       
       let fieldMsg = []
@@ -184,8 +188,8 @@ class ClienteRepository {
       return  { status:401, errors:fieldMsg  }
 
     } catch (error) {
-  
-      return {status: 500, msg: error }      
+      return {status: 500, msg: error }
+
     }
   }
 

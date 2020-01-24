@@ -10,5 +10,3 @@ exports.dateFormat = (date) => {
         return 'false'  
     }
 }
-
-
