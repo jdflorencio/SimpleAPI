@@ -163,9 +163,13 @@ class ClienteRepository {
   async deleting(req) {
     
     try{
+      
       let transaction = await sequelize.transaction()
       const { idCliente } = req.params      
-      const msg = await clientes.destroy({ where: {id: idCliente}}, {transaction: transaction})
+      await clientes.destroy({ where: {id: idCliente}}, {transaction: transaction})
+      await transaction.commit();
+
+      return {status: 200, msg: "Cliente removido com Sucesso!"}
 
     } catch ( error ) {
       await transaction.rollback()
