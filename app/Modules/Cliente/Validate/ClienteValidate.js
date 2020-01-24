@@ -1,79 +1,40 @@
-class Validation{
-  boot(body) {
-
+const processValidation = require('../../../Support/ProcessValidation')
+class Validator extends processValidation{
+  constructor(data) {
+    super()    
   }
 
-  validate(date) {
-  
-  } 
+  object(data) {
+    let result = this.validate(this.validationParameters(), data, this.messageException())
+    if (Array.isArray(result) && result.length > 0)
+    {
+      let fieldsMsg = {status: 401, fields: result}
+      return fieldsMsg
 
-}
-
-let validation = new Validation()
-
-module.exports = validation
-
-
-var test= {nome: "João Diego"}
-
-var funcoes = {
-  min: function(paramConfig, value) 	{
-    console.log(paramConfig)
-    if(value.length >= paramConfig)
-    {      
-		  console.log("==>>>", 'maior')
+    } else {
+      return false
     }
- },
-  max: function(paramConfig, value){
-  	if(value.length <= paramConfig){
-      console.log('menor')
+  }
+
+  validationParameters() {
+    const validate = {
+      nome: {
+        min:1, 
+        max: 2
+      },
+
     }
-  },
-  required: function(paramConfig, value){ 
-    if ()
-  
-  
+    return validate
+  }
 
-
-
-  
-  
-
-}
-
-var validate =  {
-	nome: {
-    min:1,
-    max:10
+  messageException() {
+    const msg = {
+      min: "Esse campo não pode ser menor quer 1",
+      max: "Esse campo não aceita valores Maiores quer 2"
+    }
+    return msg
   }
 }
 
-// var validate =  {
-// 	nome: {
-//     required: true,
-//     min:1,
-//     max: 10,
-//     rex: '/[:alnum:]/',
-//     type: '',
-//     isUndefined: false,
-//     isNull: false,    
-//   }
-// }
-
-fields = Object.keys(validate)
-
-fields.map( field => {
-  console.log(field)
-  
-  console.log(test[field])  
-//   console.warn(validate[field])
-  let attributeArray = Object.keys(validate[field])
-  attributeArray.map((method) => {
-    console.log('xxxx', method, validate[field][attributeArray])
-		funcoes[method](  validate[field][method], test[field] )
-	}
-                     
-                    )
- console.log(attributeArray)
-  
-  
+let validar = new Validator()
+module.exports = validar

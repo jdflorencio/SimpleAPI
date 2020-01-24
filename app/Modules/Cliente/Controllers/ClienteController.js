@@ -1,4 +1,6 @@
-const repository = require('../Repository/ClienteRepository');
+const repository = require('../Repository/ClienteRepository')
+const validar = require('../Validate/ClienteValidate')
+const logger =  require('../../../utils/logger')
 
 
 
@@ -25,8 +27,12 @@ module.exports = {
   },
 
   async update(req, res) {
-    const cliente =  await repository.update(req);
-    return res.status(cliente.status).send(cliente);
+    const validos = validar.object(req.body)
+    if (!validos) {
+      const cliente =  await repository.update(req);
+      return res.status(cliente.status).send(cliente);
+    }
+    return res.status(validos.status).send(validos);
   },
 
   async delete(req, res) {
