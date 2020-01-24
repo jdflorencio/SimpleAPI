@@ -18,11 +18,55 @@ class Validator extends processValidation{
 
   validationParameters() {
     const validate = {
-      nome: {
-        min:1, 
-        max: 2
+      tipo:{
+        min:1,
+        max: 60
       },
-
+      nome:{
+        min:1,
+        max: 60
+      },
+      // sexo:{
+      //   min:1,
+      //   max: 60
+      // },
+      nome_fantasia:{
+        min:1,
+        max: 60
+      }, 
+      data_nascimento:{
+        datePtBr : true
+      },
+      data_fundacao:{
+        datePtBr : true
+      },
+      nacionalidade:{
+        min:1,
+        max: 60
+      },
+      estado_civil:{
+        multiplos: ["SOLTEIRO","CASADO"]
+      },
+      // rg:{
+      //   min:1,
+      //   max: 60
+      // },
+      cpf_cnpj:{
+        min:1,
+        max: 60,
+        cnpj: true,
+        cpf: true
+      }, 
+      inscricao_estadual:{
+        min:1,
+        max: 60,
+        inscricao_estudal: true
+      }, 
+      email:{
+        min:1,
+        max: 60,
+        email: true
+      }
     }
     return validate
   }
@@ -30,7 +74,12 @@ class Validator extends processValidation{
   messageException() {
     const msg = {
       min: "Esse campo não pode ser menor quer 1",
-      max: "Esse campo não aceita valores Maiores quer 2"
+      max: "Esse campo não aceita valores Maiores quer 2",
+      cnpj: "Digite um CNPJ valido!",
+      cpf: "Digite um CPF valido!",
+      inscricao_estadual: "Digite uma Inscrição Estudual valida!",
+      email: "O email não esta valido",
+      mutiplos: "Esse valor não é aceito em nosso cadastro."
     }
     return msg
   }

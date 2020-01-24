@@ -14,66 +14,28 @@ module.exports = (sequelize, DataTypes) => {
     
     tipo: {
         type: DataTypes.ENUM,
-        values: ['pf', 'pj'],
-        validate: {
-          isIn: {
-            args: [['pf', 'pj']],
-            msg: "Valores informados invalidos"
-          }
-        }
+        values: ['pf', 'pj']
       },
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate :{
-        notEmpty: {
-          msg: "Esse campo não pode ser vazio!"
-        }, 
-        len: {
-          args: [1,60],
-          msg: "Esse campo deve ter entre 1 a 60 caracteres"
-        }
-      }
     },
     sexo: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate :{
-        notEmpty: {
-          msg: "Esse campo não pode ser vazio!"
-        }, 
-        len: {
-          args: [1,9],
-          msg: "Esse campo deve ter entre 1 a 9 caracteres"
-        }
-      }
+      allowNull: false
     },
     nome_fantasia: {
       type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len : {
-          args: [1,60],
-          msg: "Esse campo deve ter entre 1 a 60 caracteres"
-        }        
-      }
+      allowNull: true
     },
     // infor pessoas
     data_nascimento: {
-      type: DataTypes.DATE,
-      validate: {
-        isDate: {
-          args: true, 
-          msg: "Essa data não é valida"
-        }
-      }
+      type: DataTypes.DATE
     },
     data_fundacao: DataTypes.DATE,
     nacionalidade: {
       type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-      }
+      allowNull: true
     },
     estado_civil: DataTypes.STRING,
     rg: DataTypes.STRING,
@@ -83,17 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     //  contato
     email : {
       type: DataTypes.STRING,
-      allowNull: true,       
-      validate: {
-        isEmailOrEmpty(val, next) {
-          if (!val || val === "" || validateEmail(val)) {
-            return next('')
-          }
-          else {
-            return next('Email invalido')
-          }
-       }
-      }
+      allowNull: true
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -102,12 +54,6 @@ module.exports = (sequelize, DataTypes) => {
   },
   { sequelize, modelName: 'clientes' }
   );
-  /*
-  Clientes.hasMany(enderecos, {
-    foreignKey: 'clientesId',
-    onDelete: 'CASCADE',
-    onUpdate: 'NO ACTION'
-}) */
 
 Clientes.associate  = function(models) {
 
