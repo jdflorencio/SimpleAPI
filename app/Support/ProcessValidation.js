@@ -44,7 +44,7 @@ class processValidation {
         console.log("||||=======|>>SEXO - ",paramConfig, value, field)
       },
       multiplos: function(paramConfig, value, field) {
-        console.log("||||=======|>>VAL",paramConfig, value, field)
+        console.log("||||=======|>>MUTIPLOS",paramConfig, value, field)
       },
       email: function(paramConfig, value, field) {
         console.log("||||=======|>>email",paramConfig, value, field)
