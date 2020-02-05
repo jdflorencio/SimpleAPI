@@ -1,4 +1,4 @@
-# SimpleERP
+# SimpleAPI
 Uma simples APi usando NODEjs + express + mysql 
 
 ## Ccomandos basicos do Sequlize
